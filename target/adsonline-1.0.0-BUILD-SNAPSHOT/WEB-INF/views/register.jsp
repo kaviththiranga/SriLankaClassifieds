@@ -6,7 +6,7 @@
 	
 	<img id="free" src="resources/images/free.gif" alt="Free"/>
 	<div id="signupForm">
-		<form id="form" name="form" method="post" action="Register">
+		<form id="form" name="form" method="post" action="register">
 			
 			<label>First Name
 			<span class="small">First name</span>
