@@ -15,7 +15,7 @@
 			<form:errors path="name" cssClass="error" element="label" />
 			
 			<label>Username
-			<span class="small">Add your last name</span>
+			<span class="small">Enter a username</span>
 			</label>
 			<form:input path="username" />
 			<form:errors path="username" cssClass="error" element="label" />

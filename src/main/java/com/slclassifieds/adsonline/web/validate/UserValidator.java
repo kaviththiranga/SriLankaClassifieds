@@ -10,18 +10,17 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
+import com.slclassifieds.adsonline.dao.UserDao;
+import com.slclassifieds.adsonline.dao.UserDaoImpl;
 import com.slclassifieds.adsonline.model.User;
 
 public class UserValidator implements Validator {
 
-	private HibernateTemplate hibernateTemplate;
-
+	private UserDao userDao;
 	@Autowired
-	public void setSessionFactory(SessionFactory sessionFactory) 
-    {
-		this.hibernateTemplate = new HibernateTemplate(sessionFactory);
+	public void setUserDaoImpl(UserDaoImpl userDaoImpl) {
+		this.userDao = userDaoImpl;
 	}
-	
 	
 	public boolean supports(Class clazz) {
 		//just validate the Customer instances
@@ -40,6 +39,12 @@ public class UserValidator implements Validator {
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email",
 				"", "Email is required.");
 		
+		if(!userDao.isUserNameAvailable(user.getUsername())){
+			
+			String uName= user.getUsername();			
+			user.setUsername("");
+			errors.rejectValue("username","", "Username "+uName+" already exists.");
+		}
 		
 		{
 			/*String hql = "select com.slclassifieds.adsonline.model.User where USERNAME = :un";

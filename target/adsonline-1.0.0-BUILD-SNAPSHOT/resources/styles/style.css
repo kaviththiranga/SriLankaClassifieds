@@ -176,7 +176,7 @@ color: gray;
 	width:140px;
 }
 
-#signupForm input{
+#signupForm input,select{
 	float:left;
 	font-size:15px;
 	padding:1px 1px;

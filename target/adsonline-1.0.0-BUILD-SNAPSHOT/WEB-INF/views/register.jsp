@@ -2,7 +2,7 @@
 <%@ include file="/WEB-INF/views/includes/header.jsp" %>
 
 <div id="leftBody" >
-	<h3> Sign up for a LKGarage Account</h3>
+	<h3> Sign up for a SLClassifieds Account</h3>
 	
 	<img id="free" src="resources/images/free.gif" alt="Free"/>
 	<div id="signupForm">
@@ -54,7 +54,7 @@
 			<div>
 				<button type="submit">Sign-up</button>
 				
-				<button type="r" style="margin-left:10px;">Cancel</button>
+				<button type="reset" style="margin-left:10px;">Reset</button>
 			
 			</div>
 			<div class="spacer"></div>

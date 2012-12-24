@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
 
 @Entity
 @Table(name = "users")
@@ -24,6 +26,7 @@ public class User implements Serializable {
 	@Column(name = "PASSWORD")
 	private String password;
 	
+	@Transient
 	private String confirmPassword;
 	
 	@Column(name = "ENABLED")
@@ -41,13 +44,15 @@ public class User implements Serializable {
 	@Column(name = "DISTRICT")
 	private String district;
 	
-	public User(){}
+	public User(){
+		this.enabled = 1;
+	}
 	
 	public User(String userID, String username){
 		
 		this.userId = userID;
 		this.username = username;
-		
+		this.enabled = 1;
 	}
 	
 	public String getUserId() {

@@ -1,5 +1,7 @@
 package com.slclassifieds.adsonline.dao;
 
+import java.util.List;
+
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.HibernateTemplate;
@@ -40,6 +42,19 @@ public class UserDaoImpl implements UserDao  {
 		return (User) hibernateTemplate.get(User.class, userId);
 		
 	}
+	
+	@Override
+	public boolean isUserNameAvailable(String username) {
+		
+		Object [] params = new Object [] {username};
+	    String hql = "from User as u where u.username = ?";
 
+	    @SuppressWarnings("unchecked")
+		List <User> userList = (List<User>)hibernateTemplate.find(hql, params);
+		
+		return (userList.isEmpty())?true:false;
+	}
+
+	
 	
 }

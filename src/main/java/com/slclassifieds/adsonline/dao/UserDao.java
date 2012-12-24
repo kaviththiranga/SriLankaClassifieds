@@ -8,5 +8,6 @@ public interface UserDao {
 	void update(User user);
 	void delete(User user);
 	User findByUserId(String userId);
+	public boolean isUserNameAvailable(String username);
 
 }
