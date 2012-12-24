@@ -115,6 +115,7 @@ color: gray;
 	background-repeat: no-repeat;
 	background-position: top left;*/
 	min-width:460px;
+	max-width:480px;
 	/*width:500px;*/
 	padding:10px;
 	margin-bottom:50px;
@@ -152,6 +153,18 @@ color: gray;
 	font-size:13px;
 	color: maroon;
 	padding-top:3px;
+	margin-top: 20px;
+}
+
+#signupForm .error{
+	display:block;
+	color:red;
+	font-size:small;
+	font-weight:normal;
+	text-align:right;
+	min-width:440px;
+	margin-top: 0px;
+	
 }
 
 #signupForm .small{
@@ -172,7 +185,7 @@ color: gray;
 	color:maroon;
 	width:280px;
 	height:30px;	
-	margin:2px 0 20px 10px;
+	margin:20px 0 3px 10px;
 }
 #signupForm input:hover{
 	border:solid 3px #aacfe4;
@@ -192,6 +205,7 @@ color: gray;
 	font-size:11px;
 	font-weight:bold;
 	border:none;
+	margin-top: 20px;
 }
 #signupForm button:hover{
 	color:#FFFFFF;

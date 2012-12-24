@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-		<title>Web Page 1</title>
+		<title>Welcome to SLClassifieds - OnLine</title>
 		<link rel="stylesheet" type="text/css" href="resources/styles/style.css" />
 	</head>
 	<body>
@@ -11,7 +11,7 @@
 			<div id="header">
 				
 				<div id="leftHeader" >
-					<img id="logo" alt="LKGarage Logo" />
+					<img id="logo" alt="SLClassifieds Logo" />
 				</div>
 				<div id="rightHeader" >
 					<a href="url">Sign In</a><br><br>

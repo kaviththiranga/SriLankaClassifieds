@@ -6,46 +6,59 @@
 	
 	<img id="free" src="resources/images/free.gif" alt="Free"/>
 	<div id="signupForm">
-		<form id="form" name="form" method="post" action="register">
+		<form:form method="POST" action="register" commandName="user">
 			
-			<label>First Name
-			<span class="small">First name</span>
+			<label>Name
+			<span class="small">Full Name</span>
 			</label>
-			<input type="text" name="fname" id="fname" />
+			<form:input path="name" />
+			<form:errors path="name" cssClass="error" element="label" />
 			
-			<label>Last Name
+			<label>Username
 			<span class="small">Add your last name</span>
 			</label>
-			<input type="text" name="lname" id="lname" />
+			<form:input path="username" />
+			<form:errors path="username" cssClass="error" element="label" />
 
-			<label>Mobile
-			<span class="small">Add a valid address</span>
+			<label>Contact 
+			<span class="small">Add a valid Contact No</span>
 			</label>
-			<input type="text" name="mobile" id="mobile" />
+			<form:input path="contactNo" />
+			<form:errors path="contactNo" cssClass="error" element="label" />
 			
 			<label>Email
-			<span class="small">Add a valid mobile</span>
+			<span class="small">Add a valid email</span>
 			</label>
-			<input type="text" name="email" id="email" />
+			<form:input path="email" />
+			<form:errors path="email" cssClass="error" element="label" />
+			
+			<label>From
+			<span class="small">Select a district from list</span>
+			</label>
+			<form:select path="district" items="${districts}" multiple="false" />
+			<form:errors path="district" cssClass="error" element="label" />
 
+>
 			<label>Password
 			<span class="small">Min. size 6 chars</span>
 			</label>
-			<input type="password" name="password" id="password" />
+			<form:password path="password" />
+			<form:errors path="password" cssClass="error" element="label" />
 			
 			<label>Confirm Password
 			<span class="small">Min. size 6 chars</span>
 			</label>
-			<input type="password" name="cpassword" id="cpassword" />
+			<form:password path="confirmPassword" />
+			<form:errors path="confirmPassword" cssClass="error" element="label" />
 
 			<div>
 				<button type="submit">Sign-up</button>
 				
-				<button type="cancel" style="margin-left:10px;">Cancel</button>
+				<button type="r" style="margin-left:10px;">Cancel</button>
 			
 			</div>
 			<div class="spacer"></div>
-		</form>
+		</form:form>
 	</div>
 </div>
 <div id="rightBody" >

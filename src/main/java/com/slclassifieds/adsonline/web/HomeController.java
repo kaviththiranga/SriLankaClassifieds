@@ -2,6 +2,7 @@ package com.slclassifieds.adsonline.web;
 
 import java.util.Locale;
 
+import org.hibernate.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,20 +37,8 @@ public class HomeController {
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
+		
 		logger.info("Welcome home! The client locale is {}.", locale);
-		
-		User user = new User();
-		
-		//user = userDao.findByUserId("1");
-		user.setUsername("ssss");
-		user.setName("ddfdf");
-		user.setEnabled((short)1);
-		user.setPassword("dfdf");
-		user.setContactNo("56454544");
-		
-		
-		logger.info("dfdfd "+user.getEmail());
-		userDao.save(user);
 		
 		return "home";
 	}
