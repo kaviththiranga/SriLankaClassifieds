@@ -9,6 +9,7 @@
 	<configs>
 		<config>src/main/webapp/WEB-INF/spring/appServlet/validator-beans.xml</config>
 		<config>src/main/webapp/WEB-INF/spring/appServlet/db-config.xml</config>
+		<config>src/main/webapp/WEB-INF/spring/spring-security.xml</config>
 	</configs>
 	<configSets>
 	</configSets>

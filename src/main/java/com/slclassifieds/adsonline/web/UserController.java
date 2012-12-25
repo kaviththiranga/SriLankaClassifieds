@@ -66,13 +66,14 @@ public class UserController {
 			//if validator failed
 			msg = "Some Errors Found. Please Check Again";
 			model.addAttribute("mainmsg", msg);	
+			model.addAttribute("mainmsgclass", "errorblock");
 			user.setPassword("");
 			user.setConfirmPassword("");
 			return "register";
 		} else {
 			
 			// Add default user roles
-			user.addUserRole(userDao.getUserRoleByName("Registered"));	
+			user.addUserRole(userDao.getUserRoleByName("ROLE_USER"));	
 			try {				
 				
 				userDao.save(user);				
@@ -84,6 +85,7 @@ public class UserController {
 						" your username and password to continue.";
 				
 				model.addAttribute("mainmsg", msg);
+				model.addAttribute("mainmsgclass", "sucessblock");
 				return "login";
 				
 			} catch (Exception e) {
@@ -91,7 +93,8 @@ public class UserController {
 				logger.info("User Account Creation Failed."+e.getStackTrace());
 				
 				msg = "Oops! Something went wrong in the Server. Please Try again later.";
-				model.addAttribute("mainmsg", msg);				
+				model.addAttribute("mainmsg", msg);	
+				model.addAttribute("mainmsgclass", "errorblock");			
 				return "register";
 			}
 			
@@ -128,12 +131,33 @@ public class UserController {
 	
 	@RequestMapping(value="/profile",method = RequestMethod.GET)
 	public String initProfileView(ModelMap model){
- 
-		User user= userDao.findByUserId("21");
-		
+
+		User user = userDao.findByUsername("kaviththiranga");
 		model.addAttribute("user", user);
-		model.addAttribute("size", user.getUserRoles().size());
+		model.addAttribute("size", user.getPassword());
 		return "profile";
+	}
+	
+	@RequestMapping(value="/login", method = RequestMethod.GET)
+	public String login(ModelMap model) {
+ 
+		return "login";
+ 
+	}
+	
+	@RequestMapping(value="/loginfailed", method = RequestMethod.GET)
+	public String loginerror(ModelMap model) {
+ 
+		model.addAttribute("error", "true");
+		return "login";
+ 
+	}
+	
+	@RequestMapping(value="/logout", method = RequestMethod.GET)
+	public String logout(ModelMap model) {
+ 
+		return "home";
+ 
 	}
 	
 	

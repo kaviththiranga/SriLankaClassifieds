@@ -67,19 +67,31 @@ public class UserDaoImpl implements UserDao  {
 		User user = (User) hibernateTemplate.get(User.class, userId);
 		user.setUserRoles(getUserRolesByUserId(user.getUserId()));
 		return user;
-	
 	}
-	
+
 	@Override
-	public boolean isUserNameAvailable(String username) {
+	public User findByUsername(String username) {
 		
 		Object [] params = new Object [] {username};
 	    String hql = "from User as u where u.username = ?";
 
 	    @SuppressWarnings("unchecked")
 		List <User> userList = (List<User>)hibernateTemplate.find(hql, params);
+	    
+	    if(!userList.isEmpty()){
+	    	
+	    	userList.get(0).setUserRoles(getUserRolesByUserId(userList.get(0).getUserId()));
+	    	
+	    	return userList.get(0);
+	    }
+		return null;
+	}
+
+	
+	@Override
+	public boolean isUserNameAvailable(String username) {
 		
-		return (userList.isEmpty())?true:false;
+		return (findByUsername(username) == null)?true:false;
 	}
 	
 	@Override
@@ -96,7 +108,6 @@ public class UserDaoImpl implements UserDao  {
 
 
 	@SuppressWarnings("unchecked")
-	@Transactional
 	public List<UserRole> getUserRolesByUserId(String userId){
 		
 		String sql = "SELECT * FROM user_roles as u, user_role as ur" +

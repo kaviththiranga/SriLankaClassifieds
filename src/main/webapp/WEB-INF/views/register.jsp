@@ -1,4 +1,4 @@
-<%@ include file="/WEB-INF/views/includes/includes.jsp" %>
+
 <%@ include file="/WEB-INF/views/includes/header.jsp" %>
 
 <div id="leftBody" >

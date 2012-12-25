@@ -36,6 +36,25 @@ body{
 	background:#dceefb;
 	padding: 3px;
 }
+
+.errorblock {
+	color: #ff0000;
+	background-color: #ffEEEE;
+	border: 2px solid #ff0000;
+	padding: 8px;
+	margin: 16px;
+	font-size: medium;
+}
+
+.sucessblock {
+	color: green;
+	background-color: #ffEEEE;
+	border: 2px solid green;
+	padding: 8px;
+	margin: 16px;
+	font-size: medium;
+}
+
 #leftHeader{
 	float:left;
 }
@@ -234,19 +253,20 @@ color: gray;
 
 }
 
-#footer a:link{
+a.textLink{
 	color:white;
 	margin:0 5px 0 5px;
+	text-decoration: none;
 }
 
-#footer a:visited{	
+a.textLink:visited{	
 	color:white;
 }
 
-#footer a:hover{
+a.textLink:hover  {
 	font-size:1.0em;
-	background:white;
 	color:black;
+	text-decoration: underline;
 	padding:2px;
 	margin:0 3px 0 3px;
 }

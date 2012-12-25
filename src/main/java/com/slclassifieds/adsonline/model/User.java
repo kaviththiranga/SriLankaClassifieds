@@ -2,6 +2,7 @@ package com.slclassifieds.adsonline.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -15,10 +16,13 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 
 @Entity
 @Table(name = "users")
-public class User implements Serializable {
+public class User implements Serializable, UserDetails {
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -152,5 +156,35 @@ public class User implements Serializable {
 	
 	public void addUserRole(UserRole role){
 		this.userRoles.add(role);
+	}
+
+	@Override
+	public Collection<UserRole> getAuthorities() {
+
+		return userRoles;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		
+		return (enabled==0)?false:true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		
+		return (enabled==0)?false:true;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		
+		return (enabled==0)?false:true;
+	}
+
+	@Override
+	public boolean isEnabled() {
+	
+		return (enabled==0)?false:true;
 	}
 }

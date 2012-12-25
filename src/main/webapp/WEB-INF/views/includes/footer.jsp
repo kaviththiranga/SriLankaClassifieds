@@ -3,7 +3,9 @@
 			
 			<div id="footer">
 			<a id="c"></a>
-			<a href="url">About</a> | <a href="url">Terms</a> | <a href="url">Policy</a>
+			<a class="textLink" href="url">About</a> |
+			<a class="textLink" href="url">Terms</a> |
+			<a class="textLink" href="url">Policy</a>
 			</div>
 			
 			<div id="registerNow" >
