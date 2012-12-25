@@ -52,7 +52,7 @@
 			<form:errors path="confirmPassword" cssClass="error" element="label" />
 
 			<div>
-				<button type="submit">Sign-up</button>
+				<button value="Register" type="submit">Sign-up</button>
 				
 				<button type="reset" style="margin-left:10px;">Reset</button>
 			

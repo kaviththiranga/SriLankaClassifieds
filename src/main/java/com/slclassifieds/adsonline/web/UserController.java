@@ -1,13 +1,18 @@
 package com.slclassifieds.adsonline.web;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -46,8 +51,17 @@ public class UserController {
 		this.userDao = userDaoImpl;
 	}
 	@RequestMapping(value="/register",method = RequestMethod.GET)
-	public String initSignupForm(ModelMap model){
+	public String initSignupForm(ModelMap model, Principal pl){
  
+		/*if(SecurityContextHolder.getContext().getAuthentication() != null &&
+				 SecurityContextHolder.getContext().getAuthentication().isAuthenticated())
+		{			
+			String msg = "Oops! You are already a registered user.";
+			model.addAttribute("mainmsg", msg);	
+			model.addAttribute("mainmsgclass", "alert-message info");
+			
+		    return "profile";
+		}*/
 		User user= new User();		
 		model.addAttribute("user", user);
 		return "register";
@@ -66,7 +80,7 @@ public class UserController {
 			//if validator failed
 			msg = "Some Errors Found. Please Check Again";
 			model.addAttribute("mainmsg", msg);	
-			model.addAttribute("mainmsgclass", "errorblock");
+			model.addAttribute("mainmsgclass", "alert-message error");
 			user.setPassword("");
 			user.setConfirmPassword("");
 			return "register";
@@ -85,7 +99,7 @@ public class UserController {
 						" your username and password to continue.";
 				
 				model.addAttribute("mainmsg", msg);
-				model.addAttribute("mainmsgclass", "sucessblock");
+				model.addAttribute("mainmsgclass", "alert-message success");
 				return "login";
 				
 			} catch (Exception e) {
@@ -94,7 +108,7 @@ public class UserController {
 				
 				msg = "Oops! Something went wrong in the Server. Please Try again later.";
 				model.addAttribute("mainmsg", msg);	
-				model.addAttribute("mainmsgclass", "errorblock");			
+				model.addAttribute("mainmsgclass", "alert-message error");			
 				return "register";
 			}
 			

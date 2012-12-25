@@ -4,38 +4,35 @@
 
 <h1>Login to SLClassifieds</h1>
 	<c:if test="${not empty error}">
-		<div class="errorblock">
-			Your login attempt was not successful, try again.<br /> Caused :
-			${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}
+		<div class="alerts">
+			<div class="alert-message error">
+				Your login attempt was not successful, try again.<br /> Caused :
+				${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}
+			</div>
 		</div>
 	</c:if>
 	
  <div id=leftBody>
-	 <div id="signupForm" style="display: block;">
-		<form name="f" action="<c:url value='j_spring_security_check' />" method="POST">
-	 
-			<table>
-				<tr>
-					<td>User:</td>
-					<td><input type="text" name="j_username"' value="">
-					</td>
-				</tr>
-				<tr>
-					<td>Password:</td>
-					<td><input type="password" name="j_password" />
-					</td>
-				</tr>
-				<tr>
-					<td colspan="2"><input name="submit" type="submit"
-						value="submit" />
-					</td>
-				</tr>
-				<tr>
-					<td colspan="2"><input name="reset" type="reset" />
-					</td>
-				</tr>
-			</table>
-	 
+	 <div >
+		<form name="f" class="form-horizontal" action="<c:url value='j_spring_security_check' />" method="POST">
+	 		<fieldset>
+				<div class="control-group"  id="j_username" >
+					<label class="control-label">Username</label>
+					<div class="controls">
+						<input type="text" id="j_username" name="j_username" />
+					</div>
+				</div>
+				<div class="control-group" id="j_password" >
+					<label class="control-label">Password</label>
+					<div class="controls">
+						<input type="password" id="j_password" name="j_password" />
+					</div>
+				</div>
+				<div class="form-actions">
+					<button type="submit" class="btn btn-primary">Login</button>
+					<button type="reset" class="btn">Cancel</button>
+				</div>
+			</fieldset>	 
 		</form>
 	</div>
 </div>	
