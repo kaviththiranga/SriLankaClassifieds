@@ -1,10 +1,17 @@
 package com.slclassifieds.adsonline.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -44,8 +51,15 @@ public class User implements Serializable {
 	@Column(name = "DISTRICT")
 	private String district;
 	
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "user_role", 
+				joinColumns = { @JoinColumn(name = "USER_ID") }, 
+				inverseJoinColumns = { @JoinColumn(name = "USER_ROLE_ID") })
+	private List<UserRole> userRoles;
+	
 	public User(){
 		this.enabled = 1;
+		this.userRoles = new ArrayList<UserRole>();
 	}
 	
 	public User(String userID, String username){
@@ -126,5 +140,17 @@ public class User implements Serializable {
 
 	public void setDistrict(String district) {
 		this.district = district;
+	}
+
+	public List<UserRole> getUserRoles() {
+		return userRoles;
+	}
+
+	public void setUserRoles(List<UserRole> userRoles) {
+		this.userRoles = userRoles;
+	}
+	
+	public void addUserRole(UserRole role){
+		this.userRoles.add(role);
 	}
 }

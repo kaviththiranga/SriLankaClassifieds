@@ -6,6 +6,7 @@ import org.hibernate.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,7 +28,7 @@ public class HomeController {
 	private UserDao userDao;
 	
 	@Autowired
-	public void setUserDaoImpl(UserDaoImpl userDaoImpl) {
+	public void setUserDao(UserDao userDaoImpl) {
 		this.userDao = userDaoImpl;
 	}
 	

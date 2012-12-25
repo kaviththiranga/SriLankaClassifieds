@@ -6,6 +6,6 @@
 <hibernate-configuration>
     <session-factory>
         <mapping class="com.slclassifieds.adsonline.model.User" />
-    </session-factory>
-         
+        <mapping class="com.slclassifieds.adsonline.model.UserRole" />
+    </session-factory>        
 </hibernate-configuration>

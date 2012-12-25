@@ -5,6 +5,7 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
@@ -17,10 +18,12 @@ import com.slclassifieds.adsonline.model.User;
 public class UserValidator implements Validator {
 
 	private UserDao userDao;
+	
 	@Autowired
-	public void setUserDaoImpl(UserDaoImpl userDaoImpl) {
+	public void setUserDao(UserDao userDaoImpl) {
 		this.userDao = userDaoImpl;
 	}
+	
 	
 	public boolean supports(Class clazz) {
 		//just validate the Customer instances

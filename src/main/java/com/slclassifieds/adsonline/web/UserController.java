@@ -7,6 +7,7 @@ import java.util.Locale;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.support.SessionStatus;
 import com.slclassifieds.adsonline.dao.UserDao;
 import com.slclassifieds.adsonline.dao.UserDaoImpl;
 import com.slclassifieds.adsonline.model.User;
+import com.slclassifieds.adsonline.model.UserRole;
 import com.slclassifieds.adsonline.web.validate.UserValidator;
 
 /**
@@ -40,16 +42,13 @@ public class UserController {
 	}
 	
 	@Autowired
-	public void setUserDaoImpl(UserDaoImpl userDaoImpl) {
+	public void setUserDao(UserDao userDaoImpl) {
 		this.userDao = userDaoImpl;
-	}	
-	
-
+	}
 	@RequestMapping(value="/register",method = RequestMethod.GET)
 	public String initSignupForm(ModelMap model){
  
-		User user= new User();
-		
+		User user= new User();		
 		model.addAttribute("user", user);
 		return "register";
 	}
@@ -72,14 +71,14 @@ public class UserController {
 			return "register";
 		} else {
 			
-			
-			
-			try {
+			// Add default user roles
+			user.addUserRole(userDao.getUserRoleByName("Registered"));	
+			try {				
 				
-				userDao.save(user);
+				userDao.save(user);				
 				status.setComplete();
 				
-				logger.info("New User Created. Username:"+user.getName());
+				logger.info("New User Created. Username:"+user.getUsername());
 				
 				msg = "Hi "+user.getName()+", Welcome to SLClassifieds.\nPlease Login Using" +
 						" your username and password to continue.";
@@ -130,9 +129,10 @@ public class UserController {
 	@RequestMapping(value="/profile",method = RequestMethod.GET)
 	public String initProfileView(ModelMap model){
  
-		User user= new User();
-	
+		User user= userDao.findByUserId("21");
+		
 		model.addAttribute("user", user);
+		model.addAttribute("size", user.getUserRoles().size());
 		return "profile";
 	}
 	

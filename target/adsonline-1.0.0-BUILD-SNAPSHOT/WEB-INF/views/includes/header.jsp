@@ -21,4 +21,4 @@
 			</div>
 			
 			<div id="body" class="clearFix" >
-			<h1 style="display: block;font-size: large;color: red;background:#dceefb;">${mainmsg}</h1>
+			<h1 class="mainMsg">${mainmsg}</h1>

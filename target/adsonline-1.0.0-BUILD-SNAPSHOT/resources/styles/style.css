@@ -28,6 +28,14 @@ body{
 	color:white;
 }
 
+.mainMsg{
+	text-align:center;
+	display: block;
+	font-size: large;
+	color: red;
+	background:#dceefb;
+	padding: 3px;
+}
 #leftHeader{
 	float:left;
 }
