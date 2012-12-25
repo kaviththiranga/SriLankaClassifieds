@@ -28,6 +28,7 @@
 
 	</div>
 </div>
+
 <div class="row">
 	<div class="span3">
 		<a href="#"><h4>Electronics</h4></a>

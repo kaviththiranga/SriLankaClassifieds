@@ -17,12 +17,11 @@
 		<div class="container" style="padding-top: 50px;">
 			
 			<div class="header">
-				<div class="container" >
-					<div id="leftHeader" >
+				<div class="row" style="padding-bottom: 5px;" >
+					<div class="span6" style="text-align: left;" >
 						<img id="logo" alt="SLClassifieds Logo" />
 					</div>
-					<div id="rightHeader" >			
-	
+					<div class="span6" style="text-align: right;" >
 					    <security:authorize access="isAuthenticated()">
 					    logged in as <a href="profile"><security:authentication property="principal.username" /></a>  
 					    <br>

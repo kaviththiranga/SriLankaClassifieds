@@ -6,112 +6,9 @@ body{
 	font-size:12px;
 }
 
-#main {
-	width:80%;
-	min-width:900px;	
-	height:100%;
-	margin-left:10%;
-	margin-right:10%;
-	background:#ffffff;
-	border:solid 1px #616367;/*#b7ddf2;*/
-	border-top:none;
-}
-
-#header{
-	background:#616367;
-	width:100%;
-	height:100px;
-	color:white;
-}
-
-#header a{
-	color:white;
-}
-
-.mainMsg{
-	text-align:center;
-	display: block;
-	font-size: large;
-	color: red;
-	background:#dceefb;
-	padding: 3px;
-}
-
-.errorblock {
-	color: #ff0000;
-	background-color: #ffEEEE;
-	border: 2px solid #ff0000;
-	padding: 8px;
-	margin: 16px;
-	font-size: medium;
-}
-
-.sucessblock {
-	color: green;
-	background-color: #ffEEEE;
-	border: 2px solid green;
-	padding: 8px;
-	margin: 16px;
-	font-size: medium;
-}
-
-#leftHeader{
-	float:left;
-}
-
-#rightHeader{
-	text-align:right;
-	float:right;
-	padding-right:20px;
-	padding-top:20px;
-}
-
-
 #logo{
 	width:200px;
 	height:100px;
-}
-
-#body{	
-	width:100%;
-	background:#dceefb;/*abc6fd;*/
-}
-
-#leftBody{
-	float:left;
-	width:48%;
-	margin:2%;
-	margin-right:0%;
-	padding-right:2%;
-	margin-left:4%;
-	border-right: dotted 1px gray;
-	
-}
-
-#rightBody{
-	width:38%;
-	height:auto;
-	float:left;
-	margin:2%;
-}
-
-#FBconnect{
-	width:200px;
-	height:100px;
-}
-
-
-
-.mclearFix:after {
-	content: ".";
-	display: block;
-	height: 0;
-	clear: both;
-	visibility: hidden;
-}
-
-.mclearFloats {
-	clear: both;
 }
 
 #free{
@@ -119,6 +16,17 @@ body{
 	right:30px;
 	top:45px;
 }
+#registerNow  img{
+	position:fixed;
+	right:-30px;
+	top:25%;
+}
+
+#registerNow  img:hover{
+	right:-10px;
+	cursor:pointer;
+}
+
 
 #signupForm{
 	border:dashed 4px #dceefb;/*abc6fd;*/
@@ -178,56 +86,7 @@ body{
 }
 
 
-#signupForm button{
-	clear:both;
-	margin-left:150px;
-	width:125px;
-	height:31px;
-	background:#666666 url(img/button.png) no-repeat;
-	text-align:center;
-	line-height:31px;
-	color:#FFFFFF;
-	font-size:11px;
-	font-weight:bold;
-	border:none;
-	margin-top: 20px;
-}
-#signupForm button:hover{
-	color:#FFFFFF;
-	background:grey;
-	cursor:pointer;
-}
 
 
-#footer{
-	border-top:1px solid #616367;
-	margin-right:5px;
-	width:98.3%;
-	height:100px;
-	float:left;
-	text-align:right;
-	padding:10px;
-	background:#898989;
-	color:white;
 
-}
-
-
-#registerNow  img{
-	position:fixed;
-	right:-30px;
-	top:25%;
-}
-
-#registerNow  img:hover{
-	right:-10px;
-	cursor:pointer;
-}
-
-
-#FBconnect{
-	margin-top:42px;
-	width:320px;
-	height:40px;
-}
 

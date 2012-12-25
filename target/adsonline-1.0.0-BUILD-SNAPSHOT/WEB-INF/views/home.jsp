@@ -10,12 +10,15 @@
 	
 </div>
 <div class="row">
+	<div class="span1">
+
+	</div>
 	<div class="span3">
 	 <p>
 	 	<img src="<spring:url value="/resources/images/map.PNG"/>" class="img-rounded">
 	 </p>
 	</div>
-	<div class="span6" style="text-align: center;">
+	<div class="span5" style="text-align: center;">
 		<p>
 			<a href="<spring:url value="/register"/>" 
 				class="btn btn-success btn-large">Sign up NOW</a>
@@ -25,6 +28,7 @@
 
 	</div>
 </div>
+
 <div class="row">
 	<div class="span3">
 		<a href="#"><h4>Electronics</h4></a>
