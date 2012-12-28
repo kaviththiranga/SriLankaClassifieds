@@ -6,15 +6,11 @@ body{
 	font-size:12px;
 }
 
-#logo{
-	width:200px;
-	height:100px;
-}
 
 #free{
 	position:relative;
-	right:30px;
-	top:45px;
+	right:20px;
+	top:40px;
 }
 #registerNow  img{
 	position:fixed;
@@ -29,7 +25,7 @@ body{
 
 
 #signupForm{
-	border:dashed 4px #dceefb;/*abc6fd;*/
+	border:dashed 4px #fff;/*abc6fd;*/
 	background:#bfd8eb;
 	/*background-image: url(free.gif);
 	background-repeat: no-repeat;
@@ -37,32 +33,8 @@ body{
 	min-width:460px;
 	max-width:480px;
 	/*width:500px;*/
-	padding:10px;
+	padding:25px 10px 0 0;
 	margin-bottom:50px;
-	
-}
-
-
-#signupForm label{
-	display:block;
-	font-weight:bold;
-	text-align:right;
-	width:140px;
-	float:left;
-	font-size:13px;
-	color: maroon;
-	padding-top:3px;
-	margin-top: 20px;
-}
-
-#signupForm .error{
-	display:block;
-	color:red;
-	font-size:small;
-	font-weight:normal;
-	text-align:right;
-	min-width:440px;
-	margin-top: 0px;
 	
 }
 
@@ -75,15 +47,6 @@ body{
 	width:140px;
 }
 
-#signupForm input,select{
-	float:left;
-	font-size:15px;
-	padding:1px 1px;
-	padding-left:5px;
-	width:280px;
-	height:30px;	
-	margin:20px 0 3px 10px;
-}
 
 
 

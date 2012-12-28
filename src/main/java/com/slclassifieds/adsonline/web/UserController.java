@@ -26,13 +26,13 @@ import com.slclassifieds.adsonline.dao.UserDao;
 import com.slclassifieds.adsonline.dao.UserDaoImpl;
 import com.slclassifieds.adsonline.model.User;
 import com.slclassifieds.adsonline.model.UserRole;
+import com.slclassifieds.adsonline.service.UserService;
 import com.slclassifieds.adsonline.web.validate.UserValidator;
 
 /**
  * Handles requests for the register page.
  */
 @Controller
-//@RequestMapping("/register")
 public class UserController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
@@ -52,16 +52,15 @@ public class UserController {
 	}
 	@RequestMapping(value="/register",method = RequestMethod.GET)
 	public String initSignupForm(ModelMap model, Principal pl){
- 
-		/*if(SecurityContextHolder.getContext().getAuthentication() != null &&
-				 SecurityContextHolder.getContext().getAuthentication().isAuthenticated())
+		
+		if(UserService.isUserLoggedIn())
 		{			
 			String msg = "Oops! You are already a registered user.";
 			model.addAttribute("mainmsg", msg);	
-			model.addAttribute("mainmsgclass", "alert-message info");
-			
+			model.addAttribute("mainmsgclass", "alert-info");
+			model.addAttribute("user", UserService.getCurrentUser());
 		    return "profile";
-		}*/
+		}
 		User user= new User();		
 		model.addAttribute("user", user);
 		return "register";
@@ -80,7 +79,7 @@ public class UserController {
 			//if validator failed
 			msg = "Some Errors Found. Please Check Again";
 			model.addAttribute("mainmsg", msg);	
-			model.addAttribute("mainmsgclass", "alert-message error");
+			model.addAttribute("mainmsgclass", "alert-error");
 			user.setPassword("");
 			user.setConfirmPassword("");
 			return "register";
@@ -99,7 +98,7 @@ public class UserController {
 						" your username and password to continue.";
 				
 				model.addAttribute("mainmsg", msg);
-				model.addAttribute("mainmsgclass", "alert-message success");
+				model.addAttribute("mainmsgclass", "alert-success");
 				return "login";
 				
 			} catch (Exception e) {
@@ -108,7 +107,7 @@ public class UserController {
 				
 				msg = "Oops! Something went wrong in the Server. Please Try again later.";
 				model.addAttribute("mainmsg", msg);	
-				model.addAttribute("mainmsgclass", "alert-message error");			
+				model.addAttribute("mainmsgclass", "alert-error");			
 				return "register";
 			}
 			
@@ -116,16 +115,16 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/profile/edit",method = RequestMethod.GET)
-	public String initEditForm(ModelMap model){
+	public String initProfileEditForm(ModelMap model){
  
-		User user= new User();
+		User user= UserService.getCurrentUser();
 	
 		model.addAttribute("user", user);
 		return "editProfile";
 	}
 	
 	@RequestMapping(value="/profile/edit",method = RequestMethod.POST)
-	public String processEditFormSubmit(
+	public String processProfileEditFormSubmit(
 		@ModelAttribute("user") User user,
 		BindingResult result, SessionStatus status) {
  
@@ -146,9 +145,16 @@ public class UserController {
 	@RequestMapping(value="/profile",method = RequestMethod.GET)
 	public String initProfileView(ModelMap model){
 
-		User user = userDao.findByUsername("kaviththiranga");
+		if(!UserService.isUserLoggedIn())
+		{	
+			String msg = "Oops! You are not logged in. Please Log in first.";
+			model.addAttribute("mainmsg", msg);	
+			model.addAttribute("mainmsgclass", "alert-error");
+			return "login";
+		}
+		
+		User user = UserService.getCurrentUser();
 		model.addAttribute("user", user);
-		model.addAttribute("size", user.getPassword());
 		return "profile";
 	}
 	

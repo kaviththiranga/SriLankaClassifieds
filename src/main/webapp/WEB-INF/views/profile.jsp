@@ -2,13 +2,19 @@
 
 <%@ include file="/WEB-INF/views/includes/header.jsp" %>
 
-<h1>${user.name}</h1>
+<ul class="breadcrumb" style="background-color: transparent;">
+		<li>You are here<span class="divider">/</span></li>
+	    <li><a href="<spring:url value="/home"/>">Home</a> <span class="divider">/</span></li>
+	    <li class="active">Profile</li>
+</ul>
+<%@ include file="/WEB-INF/views/includes/msgIFrame.jsp" %>	
 
-<% //User uu= (User)request.getAttribute("user"); %>
-<% //request.setAttribute("size", uu.getUserRoles().size()); %>
 
-<h1>${size}</h1>
-
-<a href="<c:url value="/j_spring_security_logout" />" > Logout</a>
+<div class="span2">
+	
+</div>
+<div class="span10">
+	<h4>User Profile - ${user.name}</h4>
+</div>
 
 <%@ include file="/WEB-INF/views/includes/footer.jsp" %>

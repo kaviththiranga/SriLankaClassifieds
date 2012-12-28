@@ -1,6 +1,6 @@
 
 <%@ include file="/WEB-INF/views/includes/header.jsp" %>
-
+<%@ include file="/WEB-INF/views/includes/msgIFrame.jsp" %>	
 
 <div class="leaderboard">
 	<h2 style="text-align: center;">Welcome to slclassifieds.lk - free classifieds in Sri Lanka  </h2>
@@ -28,7 +28,11 @@
 
 	</div>
 </div>
-
+<div>
+	<ul class="nav nav-list" style="padding: 0px;">
+       	<li class="divider"></li>
+   </ul>
+</div>
 <div class="row">
 	<div class="span3">
 		<a href="#"><h4>Electronics</h4></a>

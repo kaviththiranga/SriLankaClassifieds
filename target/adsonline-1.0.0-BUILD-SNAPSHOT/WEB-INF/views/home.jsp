@@ -28,7 +28,11 @@
 
 	</div>
 </div>
-
+<div>
+	<ul class="nav nav-list" style="padding: 0px;">
+       	<li class="divider"></li>
+   </ul>
+</div>
 <div class="row">
 	<div class="span3">
 		<a href="#"><h4>Electronics</h4></a>

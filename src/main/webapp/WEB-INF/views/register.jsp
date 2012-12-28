@@ -1,6 +1,13 @@
 
 <%@ include file="/WEB-INF/views/includes/header.jsp" %>
 <%@ include file="/WEB-INF/views/includes/includes.jsp" %>
+<ul class="breadcrumb" style="background-color: transparent;">
+		<li>You are here<span class="divider">/</span></li>
+	    <li><a href="<spring:url value="/home"/>">Home</a> <span class="divider">/</span></li>
+	    <li class="active">Register</li>
+</ul>
+<%@ include file="/WEB-INF/views/includes/msgIFrame.jsp" %>	
+
 <div class="row"  >
 	<div class="span7" style="padding-left: 20px;">
 	

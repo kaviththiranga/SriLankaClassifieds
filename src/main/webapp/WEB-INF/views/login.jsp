@@ -1,16 +1,14 @@
 
 
 <%@ include file="/WEB-INF/views/includes/header.jsp" %>
-
+<ul class="breadcrumb" style="background-color: transparent;">
+		<li>You are here<span class="divider">/</span></li>
+	    <li><a href="<spring:url value="/home"/>">Home</a> <span class="divider">/</span></li>
+	    <li class="active">Login</li>
+</ul>
+<%@ include file="/WEB-INF/views/includes/msgIFrame.jsp" %>	
 <div class="container" >
-	<c:if test="${not empty error}">
-		<div class="alerts">
-			<div class="alert-message error">
-				Your login attempt was not successful, try again.<br /> Caused :
-				${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}
-			</div>
-		</div>
-	</c:if>
+	
 	<div class="span3">
 	</div>
 	<div class="span6">
