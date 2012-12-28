@@ -10,9 +10,10 @@
 <c:if test="${not empty error}">
 	
 	<div class="alert alert-error" style="margin-left: 30px;margin-right: 30px;">
-		<a class="close" data-dismiss="alert">×</a> 
-	    Your login attempt was not successful, try again.<br /> Caused :
-		${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}
+		<a class="close" data-dismiss="alert">×</a>
+		<p><i class="icon-info-sign" style="margin-right: 5px;"></i> 
+	    Your login attempt was not successful, try again. Caused :
+		${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}</p>
 	</div>
 
 

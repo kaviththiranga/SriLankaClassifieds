@@ -17,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ValidationUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -116,6 +117,14 @@ public class UserController {
 	
 	@RequestMapping(value="/profile/edit",method = RequestMethod.GET)
 	public String initProfileEditForm(ModelMap model){
+		
+		if(!UserService.isUserLoggedIn())
+		{	
+			String msg = "Oops! You are not logged in. Please Log in first.";
+			model.addAttribute("mainmsg", msg);	
+			model.addAttribute("mainmsgclass", "alert-error");
+			return "login";
+		}
  
 		User user= UserService.getCurrentUser();
 	
@@ -126,19 +135,51 @@ public class UserController {
 	@RequestMapping(value="/profile/edit",method = RequestMethod.POST)
 	public String processProfileEditFormSubmit(
 		@ModelAttribute("user") User user,
-		BindingResult result, SessionStatus status) {
+		BindingResult result, SessionStatus status, ModelMap model) {
  
-		userValidator.validate(user, result);
+		if(!UserService.isUserLoggedIn())
+		{	
+			String msg = "Oops! You are not logged in. Please Log in first.";
+			model.addAttribute("mainmsg", msg);	
+			model.addAttribute("mainmsgclass", "alert-error");
+			return "login";
+		}
+		
+		User oldUsr= userDao.findByUsername(user.getUsername());
+		
+		ValidationUtils.rejectIfEmptyOrWhitespace(result, "name",
+				"", "name is required.");
+		
+		if(user.getPassword().length()!=0 && user.getPassword().length() < 6){
+			
+			result.rejectValue("password","", "New Password shoud be at least 6 chars");
+		}
+
+		if(user.getPassword().length()!=0 && !(user.getPassword().equals(user.getConfirmPassword()))){
+			result.rejectValue("confirmPassword","", "Passwords do not match");
+			result.rejectValue("password","", "Passwords do not match");
+		}
+		
+		if(user.getPassword().length()==0){
+			result.rejectValue("password","", "New Password cannot be empty");
+			user.setPassword(oldUsr.getPassword());
+			user.setConfirmPassword(oldUsr.getPassword());			
+		}
+		
  
+		
 		if (result.hasErrors()) {
 			//if validator failed
-			user.setPassword("");
-			user.setConfirmPassword("");
+			user.setPassword(oldUsr.getPassword());
+			user.setConfirmPassword(oldUsr.getPassword());
 			return "editProfile";
 		} else {
 			status.setComplete();
+			
+			user.setUserId(oldUsr.getUserId());
+			userDao.update(user);
 			//form success
-			return "registerSuccess";
+			return "profile";
 		}
 	}
 	

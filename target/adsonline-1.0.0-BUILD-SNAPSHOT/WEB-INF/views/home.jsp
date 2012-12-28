@@ -1,6 +1,6 @@
 
 <%@ include file="/WEB-INF/views/includes/header.jsp" %>
-
+<%@ include file="/WEB-INF/views/includes/msgIFrame.jsp" %>	
 
 <div class="leaderboard">
 	<h2 style="text-align: center;">Welcome to slclassifieds.lk - free classifieds in Sri Lanka  </h2>

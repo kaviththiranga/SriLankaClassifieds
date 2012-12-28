@@ -44,7 +44,9 @@ public class UserService implements UserDetailsService {
 	
 	public static User getCurrentUser(){
 		
-		return (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		
+		return (principal instanceof UserDetails) ? (User)principal : null;
 	}
 
 }

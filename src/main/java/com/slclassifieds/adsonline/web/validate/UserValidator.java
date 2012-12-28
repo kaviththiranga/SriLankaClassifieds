@@ -48,24 +48,7 @@ public class UserValidator implements Validator {
 			user.setUsername("");
 			errors.rejectValue("username","", "Username "+uName+" already exists.");
 		}
-		
-		{
-			/*String hql = "select com.slclassifieds.adsonline.model.User where USERNAME = :un";
-			Query query = hibernateTemplate..createQuery(hql);	
 			
-			query.setParameter("un", user.getUsername());
-			User c = (User) query.uniqueResult();	
-			if (c != null) {
-			    
-			}*/
-			
-			/*List<User> users = hibernateTemplate.find("from com.slclassifieds.adsonline.model.User where USERNAME = :un",user.getUsername());
-		
-			if (users.size()>0) {
-			    errors.rejectValue("username", "Username is not available");
-			}*/
-			
-		}		
 		
 		if(user.getPassword().length() < 6){
 			

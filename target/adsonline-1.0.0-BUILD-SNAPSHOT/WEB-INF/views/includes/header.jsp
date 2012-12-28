@@ -38,22 +38,42 @@
 					    logged in as 
 							<div class="btn-group">
 								
-								<a href="profile"><button class="btn"><security:authentication property="principal.username" /></button></a>
+								<a href="profile">
+									<button class="btn">
+										<security:authentication property="principal.username" />
+										<i class="icon-user"></i>
+									</button>
+								</a>
 								<button class="btn dropdown-toggle" data-toggle="dropdown">
 									<span class="caret"></span>
 								</button>
 								<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
-									<li><a href="profile/edit">settings</a></li>
-						        	<li><a href="profile">profile</a></li>	
+									<li><a href="<spring:url value="/profile/edit"/>"/>
+											<i class="icon-wrench" style="margin-right: 2px;"></i>
+											edit account
+										</a>
+									</li>
+						        	<li><a href="<spring:url value="/profile"/>">
+						        			<i class="icon-user" style="margin-right: 2px;"></i>
+						        			profile
+						        		</a>
+						        	</li>	
 						        	<li class="divider"></li>			        
-						        	<li><a href="j_spring_security_logout">logout</a></li>
-								</ul>
+						        	<li><a href="<spring:url value="/j_spring_security_logout"/>">
+						        			<i class="icon-arrow-right" style="margin-right: 2px;"></i>
+						        			logout
+						        		</a>
+						        	</li>
+								</ul> 
 							</div>
 						</div>
 					</security:authorize>
 					
 					    <security:authorize access="! isAuthenticated()">
-					        <a href="login" data-toggle="modal" data-target="#loginFormModel">Sign In</a><br>
+					        <a href="login" data-toggle="modal" data-target="#loginFormModel">
+					        		Sign In
+					        		<i class="icon-user"></i>
+					        </a>
 				        	<div id="registerNow" >
 								<a href="register">
 								<img src="resources/images/RegisterNow.gif" alt="Register Now" />
@@ -81,8 +101,14 @@
 							<li><a href="<spring:url value="/profile"/>">Profile</a></li>
 							    
 						</ul>
-						<form class="navbar-search pull-right" method="get" action="/search">
+						<!-- <form class="navbar-search pull-right" method="get" action="/search">
 							    	<input type="text" class="search-query" placeholder="Search">
+						</form>-->
+						<form class="form-search navbar-search pull-right">
+							<div class="input-append">
+								<input type="text" class="span2 search-query">
+								<button type="submit" class="btn">Search</button>
+							</div>
 						</form>
 					</div>
 					<!--/.nav-collapse -->
@@ -91,4 +117,4 @@
 		</div>
 		<div class="container">
 			<%@ include file="/WEB-INF/views/includes/loginIFrame.jsp" %>	
-			<%@ include file="/WEB-INF/views/includes/msgIFrame.jsp" %>	
+			

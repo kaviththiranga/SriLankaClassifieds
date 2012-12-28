@@ -48,18 +48,18 @@
 									<span class="caret"></span>
 								</button>
 								<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
-									<li><a href="profile/edit">
+									<li><a href="<spring:url value="/profile/edit"/>"/>
 											<i class="icon-wrench" style="margin-right: 2px;"></i>
-											settings
+											edit account
 										</a>
 									</li>
-						        	<li><a href="profile">
+						        	<li><a href="<spring:url value="/profile"/>">
 						        			<i class="icon-user" style="margin-right: 2px;"></i>
 						        			profile
 						        		</a>
 						        	</li>	
 						        	<li class="divider"></li>			        
-						        	<li><a href="j_spring_security_logout">
+						        	<li><a href="<spring:url value="/j_spring_security_logout"/>">
 						        			<i class="icon-arrow-right" style="margin-right: 2px;"></i>
 						        			logout
 						        		</a>
@@ -101,8 +101,14 @@
 							<li><a href="<spring:url value="/profile"/>">Profile</a></li>
 							    
 						</ul>
-						<form class="navbar-search pull-right" method="get" action="/search">
+						<!-- <form class="navbar-search pull-right" method="get" action="/search">
 							    	<input type="text" class="search-query" placeholder="Search">
+						</form>-->
+						<form class="form-search navbar-search pull-right">
+							<div class="input-append">
+								<input type="text" class="span2 search-query">
+								<button type="submit" class="btn">Search</button>
+							</div>
 						</form>
 					</div>
 					<!--/.nav-collapse -->
