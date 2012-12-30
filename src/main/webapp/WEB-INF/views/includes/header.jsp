@@ -78,7 +78,7 @@
 					        </a>
 				        	<div id="registerNow" >
 								<a href="register">
-								<img src="resources/images/RegisterNow.gif" alt="Register Now" />
+								<img src="<spring:url value="/resources/images/RegisterNow.gif"/>" alt="Register Now" />
 								</a>
 							</div>
 					    </security:authorize>			

@@ -10,5 +10,6 @@
 
 <h1>${ad.title }<h1>
 <h1>${ad.category.catName}<h1>
+<h1>${ad.user.name}</h1>
 
 <%@ include file="/WEB-INF/views/includes/footer.jsp" %>

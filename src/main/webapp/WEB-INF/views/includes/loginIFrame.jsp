@@ -4,7 +4,7 @@
 			aria-hidden="true">&times;</button>
 		<h4>Log in to slclassifieds.lk</h4>
 	</div>
-	<form name="f" class="form-horizontal" style="margin-bottom: 0px;" action="<c:url value='j_spring_security_check' />" method="POST">
+	<form name="f" class="form-horizontal" style="margin-bottom: 0px;" action="<spring:url value="/j_spring_security_check" />" method="POST">
 		<div class="modal-body">
 			
  		<fieldset>

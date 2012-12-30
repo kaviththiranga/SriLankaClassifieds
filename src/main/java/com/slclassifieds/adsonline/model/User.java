@@ -61,6 +61,9 @@ public class User implements Serializable, UserDetails {
 				inverseJoinColumns = { @JoinColumn(name = "USER_ROLE_ID") })
 	private List<UserRole> userRoles;
 	
+	@OneToMany(mappedBy="user")
+	private List<Advertisement> allAds;
+	
 	public User(){
 		this.enabled = 1;
 		this.userRoles = new ArrayList<UserRole>();
@@ -186,5 +189,13 @@ public class User implements Serializable, UserDetails {
 	public boolean isEnabled() {
 	
 		return (enabled==0)?false:true;
+	}
+
+	public List<Advertisement> getAllAds() {
+		return allAds;
+	}
+
+	public void setAllAds(List<Advertisement> allAds) {
+		this.allAds = allAds;
 	}
 }

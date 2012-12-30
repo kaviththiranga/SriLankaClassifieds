@@ -26,6 +26,10 @@ public class Advertisement implements Serializable {
     @JoinColumn(name="CAT_ID" )
 	private Category category;
 	
+	@ManyToOne
+    @JoinColumn(name="USER_ID" )
+	private User user;
+	
 	
 	@Column(name = "TITLE")
 	private String title;
@@ -64,6 +68,15 @@ public class Advertisement implements Serializable {
 
 	public void setCategory(Category category) {
 		this.category = category;
+	}
+	
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public String getTitle() {
