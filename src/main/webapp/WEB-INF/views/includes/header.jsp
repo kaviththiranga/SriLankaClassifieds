@@ -29,7 +29,9 @@
 			<div class="header">
 				<div class="row" style="padding-bottom: 5px;" >
 					<div class="span6" style="text-align: left;" >
-						<img id="logo" alt="SLClassifieds Logo" src="<spring:url value="/resources/images/logo.png"/>"/>
+						<a href="<spring:url value="/home"/>">
+							<img id="logo" alt="SLClassifieds Logo" src="<spring:url value="/resources/images/logo.png"/>"/>
+						</a>
 					</div>
 					<div class="span6" style="text-align: right;" >
 					    <security:authorize access="isAuthenticated()">
@@ -84,7 +86,7 @@
 				</div>
 			</div>
 		<div class="navbar" style="margin-bottom: 0px;padding-bottom: 0px;">
-			<div class="navbar-inner">
+			<div class="navbar-inner" >
 				<div class="container">
 					<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> 
 						<span class="icon-bar"></span> 
@@ -92,7 +94,7 @@
 						<span class="icon-bar"></span>
 					</a> 
 					<a class="brand" href="#">
-							<img src="/images/w3r.png"	width="111" height="30" alt="SL Classifieds" />
+							SL Classifieds
 					</a>
 					<div class="nav-collapse">
 						<ul class="nav">

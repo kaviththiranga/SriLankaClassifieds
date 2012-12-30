@@ -17,7 +17,7 @@
 				<a href="<spring:url value="/profile"/>">View Profile</a>
 			</li>
 			<li class="active"><a href="<spring:url value="/profile/edit"/>">Edit Account</a></li>
-			<li><a href="j_spring_security_logout">Logout</a></li>
+			<li><a href="<spring:url value="/j_spring_security_logout"/>">Logout</a></li>
 	    </ul>
 	</div>
 	<div class="span10">
@@ -92,9 +92,9 @@
 					</div>
 		
 					<div class="form-actions" style="background-color: transparent;border: 0;">
-						<button class="btn btn-primary" value="Register" type="submit">Sign-up</button>
+						<button class="btn btn-primary" value="Register" type="submit">save</button>
 						
-						<button class="btn " type="reset" style="margin-left:10px;">Reset</button>	
+						<button class="btn " type="reset" style="margin-left:10px;">reset</button>	
 					</div>
 				</fieldset>
 			</form:form>

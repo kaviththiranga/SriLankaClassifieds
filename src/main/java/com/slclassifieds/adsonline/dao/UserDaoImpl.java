@@ -110,7 +110,7 @@ public class UserDaoImpl implements UserDao  {
 	@SuppressWarnings("unchecked")
 	public List<UserRole> getUserRolesByUserId(String userId){
 		
-		String sql = "SELECT * FROM user_roles as u, user_role as ur" +
+		String sql = "SELECT * FROM roles as u, user_role as ur" +
 	    		" WHERE ur.USER_ROLE_ID=u.USER_ROLE_ID AND ur.USER_ID = :uID";
 		
 		List <UserRole> roleList= new ArrayList<UserRole>();

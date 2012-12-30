@@ -5,7 +5,7 @@
 	http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd">
  
 	<http auto-config="true" use-expressions="false">
-		<!-- <intercept-url pattern="/" access="ROLE_USER" /> -->
+		<intercept-url pattern="/ads/new" access="ROLE_USER" />
 		<form-login login-page="/login" default-target-url="/profile"
 			authentication-failure-url="/loginfailed"  />
 		

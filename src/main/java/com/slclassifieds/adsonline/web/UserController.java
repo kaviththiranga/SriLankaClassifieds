@@ -11,6 +11,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -150,6 +152,12 @@ public class UserController {
 		ValidationUtils.rejectIfEmptyOrWhitespace(result, "name",
 				"", "name is required.");
 		
+		if(user.getContactNo().length()!=10){
+			
+			result.rejectValue("contactNo","", "Contact No is 10 digit. Eg- 077 XXX XXXX");
+		}
+		
+		
 		if(user.getPassword().length()!=0 && user.getPassword().length() < 6){
 			
 			result.rejectValue("password","", "New Password shoud be at least 6 chars");
@@ -161,7 +169,6 @@ public class UserController {
 		}
 		
 		if(user.getPassword().length()==0){
-			result.rejectValue("password","", "New Password cannot be empty");
 			user.setPassword(oldUsr.getPassword());
 			user.setConfirmPassword(oldUsr.getPassword());			
 		}
@@ -172,12 +179,27 @@ public class UserController {
 			//if validator failed
 			user.setPassword(oldUsr.getPassword());
 			user.setConfirmPassword(oldUsr.getPassword());
+			
+			String msg = "Oops! Some errors were found.";
+			model.addAttribute("mainmsg", msg);	
+			model.addAttribute("mainmsgclass", "alert-error");
+			
 			return "editProfile";
 		} else {
 			status.setComplete();
 			
 			user.setUserId(oldUsr.getUserId());
 			userDao.update(user);
+			// Reload updated User object to current pricipal
+			Authentication authentication = 
+					new UsernamePasswordAuthenticationToken
+					(user, user.getPassword(), user.getAuthorities());
+			
+	        SecurityContextHolder.getContext().setAuthentication(authentication);
+			
+			String msg = "Account has been successfully saved.";
+			model.addAttribute("mainmsg", msg);	
+			model.addAttribute("mainmsgclass", "alert-success");
 			//form success
 			return "profile";
 		}

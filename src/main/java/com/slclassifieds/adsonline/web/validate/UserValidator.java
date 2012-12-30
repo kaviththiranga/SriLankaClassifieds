@@ -48,6 +48,11 @@ public class UserValidator implements Validator {
 			user.setUsername("");
 			errors.rejectValue("username","", "Username "+uName+" already exists.");
 		}
+		
+		if(user.getContactNo().length()!=10){
+			
+			errors.rejectValue("contactNo","", "Contact No is 10 digit. Eg- 077 XXX XXXX");
+		}
 			
 		
 		if(user.getPassword().length() < 6){
