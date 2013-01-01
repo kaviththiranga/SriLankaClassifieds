@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -24,10 +25,10 @@ public class Category implements Serializable {
 	@Column(name = "CAT_NAME", unique=true)
 	private String catName;
 	
-	@Column(name ="DESC" , nullable = true)
+	@Column(name ="DESCRIPTION" , nullable = true)
 	private String desc;
 	
-	@OneToMany(mappedBy="category")
+	@OneToMany(mappedBy="category", fetch=FetchType.LAZY)
 	private List<Advertisement> allAds;
 	
 	public Category(){}

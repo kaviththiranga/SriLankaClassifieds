@@ -1,7 +1,9 @@
 package com.slclassifieds.adsonline.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.HibernateTemplate;
@@ -10,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.slclassifieds.adsonline.model.Advertisement;
 import com.slclassifieds.adsonline.model.User;
+import com.slclassifieds.adsonline.model.UserRole;
 
 @Repository
 @Transactional
@@ -24,8 +27,9 @@ public class AdvertisementDaoImpl implements AdvertisementDao {
 	}
 
 	@Override
-	public void save(Advertisement ad) {
-		hibernateTemplate.save(ad);
+	public void save(Advertisement ad) 
+	{		
+		hibernateTemplate.saveOrUpdate(ad);
 	}
 
 	@Override
@@ -48,10 +52,22 @@ public class AdvertisementDaoImpl implements AdvertisementDao {
 		return ad;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public List<Advertisement> getAdsByUserId() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Advertisement> getAdsByUserId(String userId) {
+
+		String sql = "SELECT * FROM advertisements USER_ID = :uID";
+		
+		List <Advertisement> adList= new ArrayList<Advertisement>();
+	
+	    Query qry = hibernateTemplate.getSessionFactory().getCurrentSession().
+	    			createSQLQuery(sql)
+	    			.addEntity(Advertisement.class)
+	    			.setParameter("uID", userId);
+	    
+	    adList = ( List <Advertisement> ) qry.list();
+	   
+	    return adList;
 	}
 
 }

@@ -12,6 +12,7 @@ import javax.sql.DataSource;
 
 
 import org.hibernate.Query;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -19,6 +20,7 @@ import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.slclassifieds.adsonline.model.Category;
 import com.slclassifieds.adsonline.model.User;
 import com.slclassifieds.adsonline.model.UserRole;
 
@@ -31,10 +33,10 @@ public class UserDaoImpl implements UserDao  {
 	
 	@Autowired
 	private DataSource dataSource;
+	
+	@Autowired
+	private AdvertisementDao advertisementDao;
 
-	public DataSource getDataSource() {
-		return dataSource;
-	}
 
 	public void setDataSource(DataSource dataSource) {
 		this.dataSource = dataSource;
@@ -50,6 +52,7 @@ public class UserDaoImpl implements UserDao  {
 	public void save(User user) {
 		hibernateTemplate.save(user);
 	}
+
 
 	@Override
 	public void update(User user) {
@@ -81,6 +84,7 @@ public class UserDaoImpl implements UserDao  {
 	    if(!userList.isEmpty()){
 	    	
 	    	userList.get(0).setUserRoles(getUserRolesByUserId(userList.get(0).getUserId()));
+	    	//userList.get(0).setAllAds(advertisementDao.getAdsByUserId(userList.get(0).getUserId()));
 	    	
 	    	return userList.get(0);
 	    }

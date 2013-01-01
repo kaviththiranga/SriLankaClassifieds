@@ -8,6 +8,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
@@ -61,8 +62,14 @@ public class User implements Serializable, UserDetails {
 				inverseJoinColumns = { @JoinColumn(name = "USER_ROLE_ID") })
 	private List<UserRole> userRoles;
 	
-	@OneToMany(mappedBy="user")
+	@OneToMany(mappedBy="user", fetch=FetchType.LAZY)
 	private List<Advertisement> allAds;
+	
+	@OneToMany(mappedBy="user", fetch=FetchType.LAZY)
+	private List<Bid> allBids;
+	
+	@OneToMany(mappedBy="user", fetch=FetchType.LAZY)
+	private List<Comment> allComments;
 	
 	public User(){
 		this.enabled = 1;
@@ -198,4 +205,21 @@ public class User implements Serializable, UserDetails {
 	public void setAllAds(List<Advertisement> allAds) {
 		this.allAds = allAds;
 	}
+
+	public List<Bid> getAllBids() {
+		return allBids;
+	}
+
+	public void setAllBids(List<Bid> allBids) {
+		this.allBids = allBids;
+	}
+
+	public List<Comment> getAllComments() {
+		return allComments;
+	}
+
+	public void setAllComments(List<Comment> allComments) {
+		this.allComments = allComments;
+	}
+	
 }

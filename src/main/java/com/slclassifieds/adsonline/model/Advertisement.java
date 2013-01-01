@@ -2,14 +2,22 @@ package com.slclassifieds.adsonline.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name="ads")
@@ -22,23 +30,22 @@ public class Advertisement implements Serializable {
 	@Column(name = "AD_ID")
 	private String adId;
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="CAT_ID" )
 	private Category category;
-	
-	@ManyToOne
+	   
+	@ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="USER_ID" )
 	private User user;
-	
 	
 	@Column(name = "TITLE")
 	private String title;
 	
-	@Column(name = "DESC", nullable = true)
+	@Column(name = "DESCRIPTION", nullable = true)
 	private String desc;
-	
+
 	@Column(name = "PRICE")
-	private float price;
+	private double price;
 	
 	@Column(name ="IMG1" , nullable = true)
 	private String imageOne;
@@ -49,8 +56,15 @@ public class Advertisement implements Serializable {
 	@Column(name ="IMG3" , nullable = true)
 	private String imageThree;
 	
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name ="CREATED")
 	private Date createdOn;
+	
+	@OneToMany(mappedBy="ad", fetch=FetchType.LAZY)
+	private List<Bid> allBids;
+	
+	@OneToMany(mappedBy="ad", fetch=FetchType.LAZY)
+	private List<Comment> allComments;
 	
 	public Advertisement(){}
 
@@ -95,11 +109,11 @@ public class Advertisement implements Serializable {
 		this.desc = desc;
 	}
 
-	public float getPrice() {
+	public double getPrice() {
 		return price;
 	}
 
-	public void setPrice(float price) {
+	public void setPrice(double price) {
 		this.price = price;
 	}
 
@@ -134,6 +148,22 @@ public class Advertisement implements Serializable {
 	public void setCreatedOn(Date createdOn) {
 		this.createdOn = createdOn;
 	}
-		
 
+	public List<Bid> getAllBids() {
+		return allBids;
+	}
+
+	public void setAllBids(List<Bid> allBids) {
+		this.allBids = allBids;
+	}
+
+	public List<Comment> getAllComments() {
+		return allComments;
+	}
+
+	public void setAllComments(List<Comment> allComments) {
+		this.allComments = allComments;
+	}
+		
+	
 }

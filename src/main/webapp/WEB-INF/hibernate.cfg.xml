@@ -7,5 +7,7 @@
     <session-factory>
         <mapping class="com.slclassifieds.adsonline.model.User" />
         <mapping class="com.slclassifieds.adsonline.model.UserRole" />
+        <mapping class="com.slclassifieds.adsonline.model.Category" />
+        <mapping class="com.slclassifieds.adsonline.model.Advertisement" />
     </session-factory>        
 </hibernate-configuration>

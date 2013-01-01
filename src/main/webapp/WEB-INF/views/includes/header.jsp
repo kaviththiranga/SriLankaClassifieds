@@ -77,7 +77,7 @@
 					        		<i class="icon-user"></i>
 					        </a>
 				        	<div id="registerNow" >
-								<a href="register">
+								<a href="<spring:url value="/register"/>">
 								<img src="<spring:url value="/resources/images/RegisterNow.gif"/>" alt="Register Now" />
 								</a>
 							</div>

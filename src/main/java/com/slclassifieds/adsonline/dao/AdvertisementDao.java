@@ -11,6 +11,6 @@ public interface AdvertisementDao {
 	public void delete(Advertisement ad);
 	
 	public Advertisement getAdById(String adId);
-	public List<Advertisement> getAdsByUserId();
+	public List<Advertisement> getAdsByUserId(String userId);
 
 }
