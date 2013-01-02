@@ -14,7 +14,7 @@
 	<div class="span6">
 		<h3 style="text-align: center;">Login to SLClassifieds</h3>
 		 <div >
-			<form name="f" class="form-horizontal" action="<c:url value='j_spring_security_check' />" method="POST">
+			<form name="f" class="form-horizontal" action="<c:url value='/j_spring_security_check' />" method="POST">
 		 		<fieldset>
 					<div class="control-group"  id="j_username" >
 						<label class="control-label">Username</label>
