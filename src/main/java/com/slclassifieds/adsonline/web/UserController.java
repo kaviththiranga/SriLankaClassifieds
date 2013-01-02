@@ -221,6 +221,22 @@ public class UserController {
 		return "profile";
 	}
 	
+	@RequestMapping(value="/viewProfile",method = RequestMethod.GET)
+	public String initUserProfileView(ModelMap model, HttpServletRequest request){
+
+		if(!UserService.isUserLoggedIn())
+		{	
+			String msg = "Oops! You are not logged in. Please Log in first.";
+			model.addAttribute("mainmsg", msg);	
+			model.addAttribute("mainmsgclass", "alert-error");
+			return "login";
+		}
+		
+		User user = userDao.findByUserId(request.getParameter("userId"));
+		model.addAttribute("user", user);
+		return "profile";
+	}
+	
 	@RequestMapping(value="/login", method = RequestMethod.GET)
 	public String login(ModelMap model) {
  

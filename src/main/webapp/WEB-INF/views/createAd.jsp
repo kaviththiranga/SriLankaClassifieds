@@ -1,31 +1,22 @@
 
-
 <%@ include file="/WEB-INF/views/includes/header.jsp" %>
-
+<%@ include file="/WEB-INF/views/includes/includes.jsp" %>
 <ul class="breadcrumb" style="background-color: transparent;">
 		<li>You are here<span class="divider">/</span></li>
 	    <li><a href="<spring:url value="/home"/>">Home</a> <span class="divider">/</span></li>
-	    <li><a href="<spring:url value="/profile"/>">Profile</a> <span class="divider">/</span></li>
-	    <li class="active">edit</li>
+	    <li class="active">Register</li>
 </ul>
 <%@ include file="/WEB-INF/views/includes/msgIFrame.jsp" %>	
 
-<div class="row">
-	<div class="span2">
-		<ul class="nav nav-tabs nav-stacked">
-	    	<li >
-				<a href="<spring:url value="/profile"/>">My Profile</a>
-			</li>
-			<li class="active"><a href="<spring:url value="/profile/edit"/>">Edit My Account</a></li>
-			<li><a href="<spring:url value="/j_spring_security_logout"/>">Logout</a></li>
-	    </ul>
-	</div>
-	<div class="span10">
-		<div class="well">
-			<h4>User Profile - ${user.name}</h4>
-		</div>
-		<spring:url value="/profile/edit" var="ProfileEditUrl"/>
-		<form:form  class="form-horizontal" method="POST" action="${ProfileEditUrl}" commandName="user">
+<div class="row"  >
+	<div class="span7" style="padding-left: 20px;">
+	
+		<h3 style="text-align: center;"> Sign up for a SLClassifieds Account</h3>
+		<img id="free" src="<spring:url value="/resources/images/free.gif"/>" alt="Free"/>
+		
+		<spring:url value="/register" var="registerSubmitUrl"/>
+		<div id="signupForm" class="span6">
+			<form:form  class="form-horizontal" method="POST" action="${registerSubmitUrl}" commandName="user">
 				<fieldset>
 					<div class="control-group" id="name">						
 						<label class="control-label">Name in Full</label>						
@@ -39,7 +30,7 @@
 					<div class="control-group" id="username">	
 						<label class="control-label">Username</label>	
 						<div class="controls">
-							<form:input readonly="true" cssClass="uneditable-input" path="username" />
+							<form:input path="username" />
 							<span class="help-inline">
 								<form:errors path="username" cssClass="text-error" element="label" />
 							</span>
@@ -57,7 +48,7 @@
 					<div class="control-group" id="email">	
 						<label class="control-label">Email</label>
 						<div class="controls">
-							<form:input cssClass="uneditable-input" readonly="true" path="email" />
+							<form:input path="email" />
 							<span class="help-inline">
 								<form:errors path="email" cssClass="text-error" element="label" />
 							</span>
@@ -73,7 +64,7 @@
 						</div>
 					</div>
 					<div class="control-group" id="password">	
-						<label class="control-label">New Password</label>
+						<label class="control-label">Password</label>
 						<div class="controls">
 							<form:password path="password" />
 							<span class="help-inline">
@@ -92,12 +83,22 @@
 					</div>
 		
 					<div class="form-actions" style="background-color: transparent;border: 0;">
-						<button class="btn btn-primary" value="Register" type="submit">save</button>
+						<button class="btn btn-primary" value="Register" type="submit">Sign-up</button>
 						
-						<button class="btn " type="reset" style="margin-left:10px;">reset</button>	
+						<button class="btn " type="reset" style="margin-left:10px;">Reset</button>	
 					</div>
 				</fieldset>
 			</form:form>
+		</div>
+	</div>
+	<div class="span2" >
+	</div>
+	<div class="span3" >
+		<h3> Connect with FaceBook</h3>
+		<br><br>
+		<img id="FBconnect" src="resources/images/fb-connect-large.png" alt="FB Connect" />
 	</div>
 </div>
+
+
 <%@ include file="/WEB-INF/views/includes/footer.jsp" %>

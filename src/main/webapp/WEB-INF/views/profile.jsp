@@ -13,9 +13,9 @@
 	<div class="span2">
 		<ul class="nav nav-tabs nav-stacked">
 	    	<li class="active">
-				<a href="<spring:url value="/profile"/>">View Profile</a>
+				<a href="<spring:url value="/profile"/>">My Profile</a>
 			</li>
-			<li><a href="<spring:url value="/profile/edit"/>">Edit Account</a></li>
+			<li><a href="<spring:url value="/profile/edit"/>">Edit My Account</a></li>
 			<li><a href="<spring:url value="/j_spring_security_logout"/>">Logout</a></li>
 	    </ul>
 	</div>

@@ -41,11 +41,13 @@ public class AdController {
 	@RequestMapping(value="/ads/viewAd", method= RequestMethod.GET)
 	public String viewAdDetails(Model model){
 
-		/*Advertisement ad = advertisementDao.getAdById("1");
-		model.addAttribute("ad", ad);*/
+		Advertisement ad = advertisementDao.getAdById("1");
+		Advertisement ad2 = advertisementDao.getAdById("2");
+		model.addAttribute("ad", ad);
+		model.addAttribute("ad2", ad2);
 		
 		
-		Advertisement ad2= new Advertisement();
+		/*Advertisement ad2= new Advertisement();
 		
 		ad2.setCategory(catDao.getAllCategories().get(2));
 		
@@ -62,7 +64,7 @@ public class AdController {
 		
 		ad2.setDesc("description");
 	
-		advertisementDao.save(ad2);
+		advertisementDao.save(ad2);*/
 		
 		return "viewAd";
 	}

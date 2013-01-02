@@ -19,6 +19,9 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 @Entity
 @Table(name="ads")
 public class Advertisement implements Serializable {
@@ -60,10 +63,12 @@ public class Advertisement implements Serializable {
 	@Column(name ="CREATED")
 	private Date createdOn;
 	
-	@OneToMany(mappedBy="ad", fetch=FetchType.LAZY)
+	@OneToMany(mappedBy="ad")
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Bid> allBids;
 	
-	@OneToMany(mappedBy="ad", fetch=FetchType.LAZY)
+	@OneToMany(mappedBy="ad")
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Comment> allComments;
 	
 	public Advertisement(){}

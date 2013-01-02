@@ -8,10 +8,9 @@
 </ul>
 <%@ include file="/WEB-INF/views/includes/msgIFrame.jsp" %>	
 
-<h1>${ad.title}<h1>
-<h1>${ad.user.name}<h1>
-<h1>${ad.category.catName}<h1>
+<slclassifieds:PrintAd summaryMode="${false}" advertisement="${ad}"/>
 
+<slclassifieds:PrintAd summaryMode="${false}" advertisement="${ad2}"/>
 
-
+<h1 id="comments"></h1>
 <%@ include file="/WEB-INF/views/includes/footer.jsp" %>
