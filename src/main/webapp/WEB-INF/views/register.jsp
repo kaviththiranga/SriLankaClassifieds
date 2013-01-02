@@ -14,8 +14,9 @@
 		<h3 style="text-align: center;"> Sign up for a SLClassifieds Account</h3>
 		<img id="free" src="<spring:url value="/resources/images/free.gif"/>" alt="Free"/>
 		
+		<spring:url value="/register" var="registerSubmitUrl"/>
 		<div id="signupForm" class="span6">
-			<form:form  class="form-horizontal" method="POST" action="register" commandName="user">
+			<form:form  class="form-horizontal" method="POST" action="${registerSubmitUrl}" commandName="user">
 				<fieldset>
 					<div class="control-group" id="name">						
 						<label class="control-label">Name in Full</label>						
