@@ -4,7 +4,7 @@
 		<li>You are here<span class="divider">/</span></li>
 	    <li><a href="<spring:url value="/home"/>">Home</a> <span class="divider">/</span></li>
 	    <li><a href="<spring:url value="/ads"/>">ads</a> <span class="divider">/</span></li>
-	    <li class="active">view Ad id=${ad.adId}</li>
+	    <li class="active">adId=${ad.adId}</li>
 </ul>
 <%@ include file="/WEB-INF/views/includes/msgIFrame.jsp" %>	
 

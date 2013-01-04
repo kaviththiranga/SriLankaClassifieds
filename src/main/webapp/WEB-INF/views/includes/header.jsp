@@ -9,17 +9,25 @@
 		<spring:url value="/resources/bootstrap/css/bootstrap.css" var="bootstrapUrl" />
 		<spring:url value="/resources/bootstrap/js/bootstrap.js" var="bootstrapJsUrl" />
 		<spring:url value="/resources/jquery-1.8.3.min.js" var="JQueryUrl" />
+		<spring:url value="/resources/jQuery.maxlen.js" var="JQueryMaxLenUrl" />
 		<spring:url value="/resources/styles/notifications.css" var="notificssUrl" />
 		<link href="${sitemaincssUrl}" rel="stylesheet"/>
 		<link href="${bootstrapUrl}" rel="stylesheet"/>
 		<link href="${notificssUrl}" rel="stylesheet"/>
 		<script type="text/javascript" src="${JQueryUrl}"></script>
 		<script type="text/javascript" src="${bootstrapJsUrl}"></script>
+		<script type="text/javascript" src="${JQueryMaxLenUrl}"></script>
 		<script type="text/javascript">
 				window.onload = function()
 		        {		
 					$('#msgmodel').modal('show')
 		        };
+		</script>
+		<script type="text/javascript">
+		    jQuery(document).ready(function($) {
+		             //Set maxlength of all the textarea (call plugin)
+		             $().maxlength();
+		    });
 		</script>
 	<div id="top"></div>	
 	</head>
@@ -100,7 +108,9 @@
 						<ul class="nav">
 							<li><a href="<spring:url value="/home"/>">Home</a></li>
 							<li><a href="<spring:url value="/register"/>">Register</a></li>
+							<li><a href="<spring:url value="/ads/new"/>">Post a Ad</a></li>
 							<li><a href="<spring:url value="/profile"/>">Profile</a></li>
+							
 							    
 						</ul>
 						<!-- <form class="navbar-search pull-right" method="get" action="/search">
