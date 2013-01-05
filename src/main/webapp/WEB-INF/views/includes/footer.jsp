@@ -17,6 +17,13 @@
 			</div>
 			
 			
+		<script type="text/javascript">
+		    $(document).ready(function($) {
+		             //Set maxlength of all the textarea (call plugin)
+		             $().maxlength();
+		             
+		    });
+		</script>
 			<footer style="text-align: right;">  
 				<p>SL Classifieds © Company 2012</p>
 				

@@ -56,26 +56,6 @@ public class AdController {
 		model.addAttribute("ad", ad);
 		model.addAttribute("ad2", ad2);
 		
-		
-		/*Advertisement ad2= new Advertisement();
-		
-		ad2.setCategory(catDao.getAllCategories().get(2));
-		
-		ad2.setUser(UserService.getCurrentUser());
-		ad2.setImageOne(null);
-		ad2.setImageTwo(null);
-		ad2.setImageThree(null);
-		
-		ad2.setCreatedOn(new Date());
-		
-		ad2.setPrice(102.0);
-		
-		ad2.setTitle("New Ad");
-		
-		ad2.setDesc("description");
-	
-		advertisementDao.save(ad2);*/
-		
 		return "viewAd";
 	}
 	

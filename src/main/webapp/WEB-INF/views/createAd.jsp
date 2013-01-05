@@ -32,7 +32,7 @@
 					<div class="control-group" id="title">	
 						<label class="control-label">Ad Title</label>	
 						<div class="controls">
-							<form:textarea class="span6" rows="2" cols="200" maxlength="200" path="title" />
+							<form:textarea class="span6" rows="2" cols="200" maxlength="20" path="title" />
 							<span class="help-inline">
 								<form:errors path="title" cssClass="text-error" element="label" />
 							</span>

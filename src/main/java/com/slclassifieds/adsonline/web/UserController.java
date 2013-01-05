@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,16 +20,20 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.support.SessionStatus;
 
 import com.slclassifieds.adsonline.dao.UserDao;
 import com.slclassifieds.adsonline.dao.UserDaoImpl;
+import com.slclassifieds.adsonline.model.ErrorMessage;
 import com.slclassifieds.adsonline.model.User;
 import com.slclassifieds.adsonline.model.UserRole;
+import com.slclassifieds.adsonline.model.ValidationResponse;
 import com.slclassifieds.adsonline.service.UserService;
 import com.slclassifieds.adsonline.web.validate.UserValidator;
 
@@ -115,6 +120,33 @@ public class UserController {
 			}
 			
 		}
+	}
+	
+	@RequestMapping(value="/register.json",method=RequestMethod.POST)
+	public @ResponseBody ValidationResponse processFormAjaxJson(Model model, @ModelAttribute(value="user")User user, BindingResult result ){
+		ValidationResponse res = new ValidationResponse();
+		userValidator.validate(user, result);
+		if(result.hasErrors()){
+			res.setStatus("FAIL");
+			try {
+				Thread.sleep(1500);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			List<FieldError> allErrors = result.getFieldErrors();
+			List<ErrorMessage> errorMesages = new ArrayList<ErrorMessage>();
+			for (FieldError objectError : allErrors) {
+				errorMesages.add(new ErrorMessage(objectError.getField(), objectError.getDefaultMessage()));
+			}
+			
+			res.setErrorMessageList(errorMesages);
+
+		}else{
+			res.setStatus("SUCCESS");
+		}
+
+		return res;
 	}
 	
 	@RequestMapping(value="/profile/edit",method = RequestMethod.GET)

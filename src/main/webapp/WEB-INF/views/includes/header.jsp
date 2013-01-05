@@ -14,21 +14,18 @@
 		<link href="${sitemaincssUrl}" rel="stylesheet"/>
 		<link href="${bootstrapUrl}" rel="stylesheet"/>
 		<link href="${notificssUrl}" rel="stylesheet"/>
+		
 		<script type="text/javascript" src="${JQueryUrl}"></script>
 		<script type="text/javascript" src="${bootstrapJsUrl}"></script>
 		<script type="text/javascript" src="${JQueryMaxLenUrl}"></script>
-		<script type="text/javascript">
+		 <script type="text/javascript">
 				window.onload = function()
 		        {		
 					$('#msgmodel').modal('show')
 		        };
 		</script>
-		<script type="text/javascript">
-		    jQuery(document).ready(function($) {
-		             //Set maxlength of all the textarea (call plugin)
-		             $().maxlength();
-		    });
-		</script>
+		
+		
 	<div id="top"></div>	
 	</head>
 	<body>

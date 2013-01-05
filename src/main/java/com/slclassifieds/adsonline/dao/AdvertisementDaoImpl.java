@@ -34,8 +34,9 @@ public class AdvertisementDaoImpl implements AdvertisementDao {
 
 	@Override
 	public void update(Advertisement ad) {
+		
 		hibernateTemplate.update(ad);
-
+		
 	}
 
 	@Override
