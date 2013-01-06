@@ -9,7 +9,7 @@
 		<spring:url value="/resources/bootstrap/css/bootstrap.css" var="bootstrapUrl" />
 		<spring:url value="/resources/bootstrap/js/bootstrap.js" var="bootstrapJsUrl" />
 		<spring:url value="/resources/jquery-1.8.3.min.js" var="JQueryUrl" />
-		<spring:url value="/resources/jQuery.maxlen.js" var="JQueryMaxLenUrl" />
+		<spring:url value="/resources/jQuery.maxlen.js" var="JQueryMaxLenUrl" />		
 		<spring:url value="/resources/styles/notifications.css" var="notificssUrl" />
 		<link href="${sitemaincssUrl}" rel="stylesheet"/>
 		<link href="${bootstrapUrl}" rel="stylesheet"/>
@@ -24,7 +24,6 @@
 					$('#msgmodel').modal('show')
 		        };
 		</script>
-		
 		
 	<div id="top"></div>	
 	</head>

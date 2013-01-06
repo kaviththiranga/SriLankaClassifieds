@@ -15,9 +15,11 @@
 		<h3 style="text-align: center;"> Post a free Advertisement</h3>
 		<img id="free" src="<spring:url value="/resources/images/free.gif"/>" alt="Free"/>
 		<spring:url value="/ads/new" var="adSubmitUrl"/>
-		<div  >
-			<form:form class="form-horizontal" method="POST" action="${adSubmitUrl}" commandName="ad">
-				<fieldset>
+		<!-- Start Create Ad Form -->
+		<form:form id="createAd" class="form-horizontal" method="POST" action="${adSubmitUrl}" commandName="ad" >
+		<fieldset>
+		<div class="span6" >
+			
 					<div class="control-group" id="category">						
 						<label class="control-label">Select Category</label>						
 						<div class="controls">
@@ -32,7 +34,7 @@
 					<div class="control-group" id="title">	
 						<label class="control-label">Ad Title</label>	
 						<div class="controls">
-							<form:textarea class="span6" rows="2" cols="200" maxlength="20" path="title" />
+							<form:textarea rows="2" cols="200" maxlength="200" path="title" />
 							<span class="help-inline">
 								<form:errors path="title" cssClass="text-error" element="label" />
 							</span>
@@ -41,7 +43,7 @@
 					<div class="control-group" id="desc">
 						<label class="control-label">Description</label>
 						<div class="controls">
-							<form:textarea class="span6" rows="5" cols="200" maxlength="2000" path="desc"/>
+							<form:textarea rows="5" cols="200" maxlength="2000" path="desc"/>
 							<span class="help-inline">
 								<form:errors path="desc" cssClass="text-error" element="label" />
 							</span>
@@ -52,7 +54,7 @@
 						<div class="controls">
 							<div class="input-prepend">
 								<span class="add-on">Rs</span>
-								<form:input id="prependedInput" path="price" />
+								<form:input id="prependedInput" path="price" cssStyle="width:180px;"/>
 							</div>
 							<span class="help-inline">
 								<form:errors path="price" cssClass="text-error" element="label" />
@@ -65,11 +67,29 @@
 						
 						<button class="btn " type="reset" style="margin-left:10px;">Reset</button>	
 					</div>
-				</fieldset>
-			</form:form>
 		</div>
+		<spring:url value="/ads/uploadImage" var="imgUploadUrl"/>
+		<div class="span4 well">
+			<h6>Upload Images</h6>
+			<span id='filename'></span>
+			<a href="#" id="addImage">add an image</a>
+			<input id="uploadImg" type="file" name="file" data-url="${imgUploadUrl}" multiple style="opacity: 0; filter:alpha(opacity: 0);"/>
+		</div>
+		</fieldset>
+		</form:form>
 	</div>
 </div>
+<script type="text/javascript">
+$(document).ready(function() {
+	$("#addImage").click(function () {
+	    $("#uploadImg").trigger('click');
+	});
 
+});
+</script>
+<<script type="text/javascript">
+
+</script>
+<div id='msgbox' title='' style='display:none'></div>
 
 <%@ include file="/WEB-INF/views/includes/footer.jsp" %>

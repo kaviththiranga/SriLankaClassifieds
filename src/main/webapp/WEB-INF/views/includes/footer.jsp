@@ -1,7 +1,7 @@
 	
 			</div>
 			<div class="container" >
-			<p style="margin-bottom: 0px;"><a style="font-size: small;" class="close" href="#top">Go to top <i class="icon-chevron-up"></i></a></p>  
+			<p style="margin-bottom: 0px;"><a style="font-size: small;" class="close" onclick="scrollWin();">Go to top <i class="icon-chevron-up"></i></a></p>  
 			<br>
 			<ul class="nav nav-list" style="padding: 0px;">
 		       	<li class="divider"></li>
@@ -16,6 +16,13 @@
 
 			</div>
 			
+		<script type="text/javascript">			
+	        function scrollWin(){
+	        	$('html,body').animate({
+	        	scrollTop: $("#top").offset().top
+	        	}, 1000);
+	        }
+		</script>
 			
 		<script type="text/javascript">
 		    $(document).ready(function($) {
