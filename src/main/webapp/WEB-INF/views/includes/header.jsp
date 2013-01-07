@@ -76,10 +76,12 @@
 					</security:authorize>
 					
 					    <security:authorize access="! isAuthenticated()">
+					    	<a href="<spring:url value="/register"/>" >register</a><span class="divider"> /</span>
 					        <a href="login" data-toggle="modal" data-target="#loginFormModel">
-					        		Sign In
+					        		login
 					        		<i class="icon-user"></i>
 					        </a>
+					        
 				        	<div id="registerNow" >
 								<a href="<spring:url value="/register"/>">
 								<img src="<spring:url value="/resources/images/RegisterNow.gif"/>" alt="Register Now" />

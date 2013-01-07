@@ -25,6 +25,7 @@ import org.springframework.validation.ValidationUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.support.SessionStatus;
 
@@ -35,6 +36,7 @@ import com.slclassifieds.adsonline.model.User;
 import com.slclassifieds.adsonline.model.UserRole;
 import com.slclassifieds.adsonline.model.ValidationResponse;
 import com.slclassifieds.adsonline.service.UserService;
+import com.slclassifieds.adsonline.web.support.SecurityQuestionAjaxResponse;
 import com.slclassifieds.adsonline.web.validate.UserValidator;
 
 /**
@@ -69,7 +71,8 @@ public class UserController {
 			model.addAttribute("user", UserService.getCurrentUser());
 		    return "profile";
 		}
-		User user= new User();		
+		User user= new User();
+		user.setQuestion("What is your best friend's first name?");
 		model.addAttribute("user", user);
 		return "register";
 	}
@@ -128,12 +131,20 @@ public class UserController {
 		userValidator.validate(user, result);
 		if(result.hasErrors()){
 			res.setStatus("FAIL");
+			
+			// I am using a thread.sleep here because I want to see wether
+			// the loading animations on client side is working.
+			// Since I am testing the site in a local server, response is received very quickly.
+			// So we didn't get enough time to see loading animations
+			// Remove this try catch block when deploying in actual server
 			try {
-				Thread.sleep(1500);
+				Thread.sleep(500);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			// END TRY CATCH : NOTE REMOVE THIS BEFORE DEPLOYING
+			
 			List<FieldError> allErrors = result.getFieldErrors();
 			List<ErrorMessage> errorMesages = new ArrayList<ErrorMessage>();
 			for (FieldError objectError : allErrors) {
@@ -205,10 +216,21 @@ public class UserController {
 			user.setConfirmPassword(oldUsr.getPassword());			
 		}
 		
+		if(!(user.getQuestion().length()>0)){
+			
+			result.rejectValue("question","", "question is required.");
+		}
+		
+		if(!(user.getAnswer().length()>0)){
+			
+			result.rejectValue("answer","", "answer is required.");
+		}
+		
  
 		
 		if (result.hasErrors()) {
 			//if validator failed
+			
 			user.setPassword(oldUsr.getPassword());
 			user.setConfirmPassword(oldUsr.getPassword());
 			
@@ -219,7 +241,7 @@ public class UserController {
 			return "editProfile";
 		} else {
 			status.setComplete();
-			
+			user.setUserRoles(oldUsr.getUserRoles());
 			user.setUserId(oldUsr.getUserId());
 			userDao.update(user);
 			// Reload updated User object to current pricipal
@@ -235,6 +257,144 @@ public class UserController {
 			//form success
 			return "profile";
 		}
+	}
+	
+	@RequestMapping(value="/profile/passwordReset.json",method = RequestMethod.POST)
+	public @ResponseBody ValidationResponse initResetForm(ModelMap model,
+				
+			@RequestParam("password") String pw,@RequestParam("confirmPassword") String pwC,
+			@RequestParam("j_username") String un
+			){
+		
+		ValidationResponse response= new ValidationResponse();
+		List<ErrorMessage> errorMessageList= new ArrayList<ErrorMessage>();
+		
+		// I am using a thread.sleep here because I want to see wether
+		// the loading animations on client side is working.
+		// Since I am testing the site in a local server, response is received very quickly.
+		// So we didn't get enough time to see loading animations
+		// Remove this try catch block when deploying in actual server
+		try {
+			Thread.sleep(500);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		// END TRY CATCH : NOTE REMOVE THIS BEFORE DEPLOYING
+		
+		if(pw.length() < 6){
+			
+			response.setStatus("ERROR");
+			errorMessageList.add(new ErrorMessage("password", "Password should at least be six chars"));
+			
+		}
+
+		if(!(pw.equals(pwC))){
+			response.setStatus("ERROR");
+			errorMessageList.add(new ErrorMessage("confirmPassword", "Passwords should Match"));
+		}
+		
+		if(errorMessageList.size()==0){
+			
+			response.setStatus("SUCCESS");
+			User user=  userDao.findByUsername(un);
+			
+			user.setPassword(pw);
+			userDao.update(user);
+		}
+
+		response.setErrorMessageList(errorMessageList);
+		
+		return response;
+	}
+	
+	
+	@RequestMapping(value="/profile/passwordReset",method = RequestMethod.GET)
+	public String submitResetForm(ModelMap model){
+		
+		return "reset";
+	}
+	
+	@SuppressWarnings("unused")
+	@RequestMapping(value="/profile/securityQuestion.json",method = RequestMethod.POST)
+	public @ResponseBody SecurityQuestionAjaxResponse sendSecurityQuestion(@RequestParam("j_username") String un){
+		
+		// I am using a thread.sleep here because I want to see wether
+		// the loading animations on client side is working.
+		// Since I am testing the site in a local server, response is received very quickly.
+		// So we didn't get enough time to see loading animations
+		// Remove this try catch block when deploying in actual server
+		try {
+			Thread.sleep(500);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		// END TRY CATCH : NOTE REMOVE THIS BEFORE DEPLOYING
+		
+		User user=  userDao.findByUsername(un);
+		
+		SecurityQuestionAjaxResponse response = new SecurityQuestionAjaxResponse();
+		
+		if(user != null){
+			response.setStatus("OK");
+			response.setQuestion(user.getQuestion());
+			response.setUsername(user.getUsername());
+			response.setName(user.getName());
+		}
+		else{
+
+			response.setStatus("NOT FOUND");
+
+		}
+		
+		return response; 
+		
+	}
+	
+	@SuppressWarnings("unused")
+	@RequestMapping(value="/profile/confirmAnswer.json",method = RequestMethod.POST)
+	public @ResponseBody SecurityQuestionAjaxResponse validateAnswer(
+			
+			@RequestParam("j_username") String un, @RequestParam("answer") String an
+			
+			){
+		
+		// I am using a thread.sleep here because I want to see wether
+		// the loading animations on client side is working.
+		// Since I am testing the site in a local server, response is received very quickly.
+		// So we didn't get enough time to see loading animations
+		// Remove this try catch block when deploying in actual server
+		try {
+			Thread.sleep(500);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		// END TRY CATCH : NOTE REMOVE THIS BEFORE DEPLOYING
+		
+		User user=  userDao.findByUsername(un);
+		
+		SecurityQuestionAjaxResponse response = new SecurityQuestionAjaxResponse();
+		logger.info("Username is "+un);
+		logger.info("answer is "+an+" sdsd "+user.getAnswer());
+		if(user.getAnswer().equals(an) ){
+			response.setStatus("CORRECT");
+			response.setQuestion(user.getQuestion());
+			response.setUsername(user.getUsername());
+			response.setName(user.getName());
+		}
+		else{
+
+			response.setStatus("INCORRECT");
+			response.setQuestion(user.getQuestion());
+			response.setUsername(user.getUsername());
+			response.setName(user.getName());
+
+		}
+		
+		return response; 
+		
 	}
 	
 	@RequestMapping(value="/profile",method = RequestMethod.GET)

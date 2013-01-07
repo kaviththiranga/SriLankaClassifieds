@@ -12,7 +12,7 @@
 <div class="row"  >
 	<div class="span7" style="padding-left: 20px;">
 	
-		<h3 style="text-align: center;"> Sign up for a SLClassifieds Account</h3>
+		<h3 style="text-align: center;">Sign up for a SLClassifieds Account</h3>
 		<img id="free" src="<spring:url value="/resources/images/free.gif"/>" alt="Free"/>
 		
 		<spring:url value="/register" var="registerSubmitUrl"/>
@@ -83,6 +83,24 @@
 							</span>
 						</div>
 					</div>
+					<div class="control-group" id="questionCG">	
+						<label class="control-label">Security Question</label>
+						<div class="controls">
+							<form:textarea rows="2" cols="200" maxlength="400" path="question" />
+							<span class="help-inline">
+								<form:errors path="question" cssClass="text-error" element="label" />
+							</span>
+						</div>
+					</div>
+					<div class="control-group" id="answerCG">	
+						<label class="control-label">Answer</label>
+						<div class="controls">
+							<form:textarea rows="1" cols="20" maxlength="20"  path="answer" />
+							<span class="help-inline">
+								<form:errors path="answer" cssClass="text-error" element="label" />
+							</span>
+						</div>
+					</div>
 		
 					<div class="form-actions" style="background-color: transparent;border: 0;">
 						<button id="submitBtn" class="btn btn-primary" value="Register" type="submit">Sign-up</button>
@@ -116,7 +134,7 @@
 		var $form = $('#signupform2');
 		$form.bind('submit', function(e) {
 			// Ajax validation
-			var $inputs = $form.find('input');
+			var $inputs = $form.find('input,textarea');
 			var data = collectFormData($inputs);
 			
 			

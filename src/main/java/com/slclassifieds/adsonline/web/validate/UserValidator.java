@@ -49,11 +49,19 @@ public class UserValidator implements Validator {
 			errors.rejectValue("username","", "Username "+uName+" already exists.");
 		}
 		
+		if(!(user.getQuestion().length()>0)){
+			
+			errors.rejectValue("question","", "question is required.");
+		}
+		
+		if(!(user.getAnswer().length()>0)){
+			
+			errors.rejectValue("answer","", "answer is required.");
+		}
 		if(user.getContactNo().length()!=10){
 			
 			errors.rejectValue("contactNo","", "Contact No is 10 digit. Eg- 077 XXX XXXX");
 		}
-			
 		
 		if(user.getPassword().length() < 6){
 			

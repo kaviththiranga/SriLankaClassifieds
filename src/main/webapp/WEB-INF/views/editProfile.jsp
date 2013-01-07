@@ -90,6 +90,24 @@
 							</span>
 						</div>
 					</div>
+					<div class="control-group" id="questionCG">	
+						<label class="control-label">Security Question</label>
+						<div class="controls">
+							<form:textarea rows="2" cols="200" maxlength="400" path="question" />
+							<span class="help-inline">
+								<form:errors path="question" cssClass="text-error" element="label" />
+							</span>
+						</div>
+					</div>
+					<div class="control-group" id="answerCG">	
+						<label class="control-label">Answer</label>
+						<div class="controls">
+							<form:textarea rows="1" cols="20" maxlength="20"  path="answer" />
+							<span class="help-inline">
+								<form:errors path="answer" cssClass="text-error" element="label" />
+							</span>
+						</div>
+					</div>
 		
 					<div class="form-actions" style="background-color: transparent;border: 0;">
 						<button class="btn btn-primary" value="Register" type="submit">save</button>

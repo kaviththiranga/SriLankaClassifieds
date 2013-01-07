@@ -6,6 +6,8 @@
  
 	<http auto-config="true" use-expressions="false">
 		<intercept-url pattern="/ads/new" access="ROLE_USER" />
+		<intercept-url pattern="/profile" access="ROLE_USER" />
+		<intercept-url pattern="/viewProfile" access="ROLE_USER" />
 		<form-login login-page="/login" default-target-url="/profile"
 			authentication-failure-url="/loginfailed"  />
 		

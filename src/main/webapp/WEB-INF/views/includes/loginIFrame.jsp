@@ -4,6 +4,7 @@
 			aria-hidden="true">&times;</button>
 		<h4>Log in to slclassifieds.lk</h4>
 	</div>
+	
 	<form name="f" class="form-horizontal" style="margin-bottom: 0px;" action="<spring:url value="/j_spring_security_check" />" method="POST">
 		<div class="modal-body">
 			
@@ -22,9 +23,12 @@
 			</div>
 							
 		</div>
-		<div class="modal-footer" >					
+		<div class="modal-footer" >	
+				<spring:url value="/profile/passwordReset" var="resetUrl"/>
+				<a href="${resetUrl}" class="btn btn-primary">Forgot Password</a>				
 				<button type="submit" class="btn btn-primary">Login</button>
 				<button data-dismiss="modal" class="btn btn-warning">Cancel</button>
+				
 		</div>
 		</fieldset>	 
 	</form>
