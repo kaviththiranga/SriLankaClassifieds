@@ -83,6 +83,7 @@
 $(document).ready(function() {
 	$("#addImage").click(function () {
 	    $("#uploadImg").trigger('click');
+	    return false;
 	});
 
 });

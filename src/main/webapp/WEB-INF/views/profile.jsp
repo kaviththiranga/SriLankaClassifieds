@@ -21,7 +21,8 @@
 	</div>
 	<div class="span10">
 		<div class="well">
-			<h4>User Profile - ${user.name}</h4>
+			<h4>User Profile - ${favAds}</h4>
+			<h6> fav ads</h6>
 		</div>
 	</div>
 </div>

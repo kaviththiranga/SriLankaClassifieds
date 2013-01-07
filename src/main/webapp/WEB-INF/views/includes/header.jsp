@@ -11,9 +11,11 @@
 		<spring:url value="/resources/jquery-1.8.3.min.js" var="JQueryUrl" />
 		<spring:url value="/resources/jQuery.maxlen.js" var="JQueryMaxLenUrl" />		
 		<spring:url value="/resources/styles/notifications.css" var="notificssUrl" />
+		<spring:url value="/resources/bootstrap/css/font-awesome.min.css" var="fontAwesomeUrl" />
 		<link href="${sitemaincssUrl}" rel="stylesheet"/>
 		<link href="${bootstrapUrl}" rel="stylesheet"/>
 		<link href="${notificssUrl}" rel="stylesheet"/>
+		<link href="${fontAwesomeUrl}" rel="stylesheet"/>
 		
 		<script type="text/javascript" src="${JQueryUrl}"></script>
 		<script type="text/javascript" src="${bootstrapJsUrl}"></script>
@@ -76,14 +78,14 @@
 					</security:authorize>
 					
 					    <security:authorize access="! isAuthenticated()">
-					    	<a href="<spring:url value="/register"/>" >register</a><span class="divider"> /</span>
-					        <a href="login" data-toggle="modal" data-target="#loginFormModel">
+					    	<a rel="tooltip" title="Click here to Register" href="<spring:url value="/register"/>" >register</a><span class="divider"> /</span>
+					        <a rel="tooltip" title="Click here to Login" href="login" data-toggle="modal" data-target="#loginFormModel">
 					        		login
 					        		<i class="icon-user"></i>
 					        </a>
 					        
 				        	<div id="registerNow" >
-								<a href="<spring:url value="/register"/>">
+								<a  href="<spring:url value="/register"/>">
 								<img src="<spring:url value="/resources/images/RegisterNow.gif"/>" alt="Register Now" />
 								</a>
 							</div>

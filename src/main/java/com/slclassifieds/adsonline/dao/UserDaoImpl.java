@@ -11,6 +11,7 @@ import java.util.List;
 import javax.sql.DataSource;
 
 
+import org.hibernate.Hibernate;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -20,6 +21,7 @@ import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.slclassifieds.adsonline.model.Advertisement;
 import com.slclassifieds.adsonline.model.Category;
 import com.slclassifieds.adsonline.model.User;
 import com.slclassifieds.adsonline.model.UserRole;
@@ -56,7 +58,12 @@ public class UserDaoImpl implements UserDao  {
 
 	@Override
 	public void update(User user) {
-		hibernateTemplate.update(user);	
+		
+			hibernateTemplate.saveOrUpdate(user);
+			
+			for(int i=0;i<user.getAllFavItems().size();i++){
+				hibernateTemplate.saveOrUpdate(user.getAllFavItems().get(i));
+			}
 	}
 
 	@Override
@@ -68,7 +75,7 @@ public class UserDaoImpl implements UserDao  {
 	public User findByUserId(String userId) {
 		
 		User user = (User) hibernateTemplate.get(User.class, userId);
-		user.setUserRoles(getUserRolesByUserId(user.getUserId()));
+		//user.setUserRoles(getUserRolesByUserId(user.getUserId()));
 		return user;
 	}
 
@@ -83,7 +90,7 @@ public class UserDaoImpl implements UserDao  {
 	    
 	    if(!userList.isEmpty()){
 	    	
-	    	userList.get(0).setUserRoles(getUserRolesByUserId(userList.get(0).getUserId()));
+	    	//userList.get(0).setUserRoles(getUserRolesByUserId(userList.get(0).getUserId()));
 	    	//userList.get(0).setAllAds(advertisementDao.getAdsByUserId(userList.get(0).getUserId()));
 	    	
 	    	return userList.get(0);
@@ -134,6 +141,26 @@ public class UserDaoImpl implements UserDao  {
 		
 		hibernateTemplate.save(uR);
 	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Advertisement> getFavAdsByUserId(String userId) {
+		
+		String sql = "SELECT * FROM ads AS ad, favs as fav WHERE fav.USER_ID = :uID AND fav.AD_ID = ad.AD_ID";
+		
+		List <Advertisement> adList= new ArrayList<Advertisement>();
+	
+	    Query qry = hibernateTemplate.getSessionFactory().getCurrentSession().
+	    			createSQLQuery(sql)
+	    			.addEntity(Advertisement.class)
+	    			.setParameter("uID", userId);
+	    
+	    adList = ( List <Advertisement> ) qry.list();
+	   
+	    return adList;
+	}
+	
+	
 
 	
 	

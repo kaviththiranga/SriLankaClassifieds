@@ -8,6 +8,7 @@ import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.hibernate.Hibernate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -29,9 +31,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.support.SessionStatus;
 
+import com.slclassifieds.adsonline.dao.AdvertisementDao;
 import com.slclassifieds.adsonline.dao.UserDao;
 import com.slclassifieds.adsonline.dao.UserDaoImpl;
-import com.slclassifieds.adsonline.model.ErrorMessage;
+import com.slclassifieds.adsonline.model.Advertisement;
+import com.slclassifieds.adsonline.model.FavItem;
+import com.slclassifieds.adsonline.model.Message;
 import com.slclassifieds.adsonline.model.User;
 import com.slclassifieds.adsonline.model.UserRole;
 import com.slclassifieds.adsonline.model.ValidationResponse;
@@ -51,6 +56,13 @@ public class UserController {
 	
 	private UserDao userDao;
 	
+	private AdvertisementDao adDao;
+	
+	@Autowired
+	public void setAdDao(AdvertisementDao adDao) {
+		this.adDao = adDao;
+	}
+
 	@Autowired
 	public UserController(UserValidator userValidator){
 		this.userValidator = userValidator;
@@ -146,9 +158,9 @@ public class UserController {
 			// END TRY CATCH : NOTE REMOVE THIS BEFORE DEPLOYING
 			
 			List<FieldError> allErrors = result.getFieldErrors();
-			List<ErrorMessage> errorMesages = new ArrayList<ErrorMessage>();
+			List<Message> errorMesages = new ArrayList<Message>();
 			for (FieldError objectError : allErrors) {
-				errorMesages.add(new ErrorMessage(objectError.getField(), objectError.getDefaultMessage()));
+				errorMesages.add(new Message(objectError.getField(), objectError.getDefaultMessage()));
 			}
 			
 			res.setErrorMessageList(errorMesages);
@@ -267,7 +279,7 @@ public class UserController {
 			){
 		
 		ValidationResponse response= new ValidationResponse();
-		List<ErrorMessage> errorMessageList= new ArrayList<ErrorMessage>();
+		List<Message> errorMessageList= new ArrayList<Message>();
 		
 		// I am using a thread.sleep here because I want to see wether
 		// the loading animations on client side is working.
@@ -285,13 +297,13 @@ public class UserController {
 		if(pw.length() < 6){
 			
 			response.setStatus("ERROR");
-			errorMessageList.add(new ErrorMessage("password", "Password should at least be six chars"));
+			errorMessageList.add(new Message("password", "Password should at least be six chars"));
 			
 		}
 
 		if(!(pw.equals(pwC))){
 			response.setStatus("ERROR");
-			errorMessageList.add(new ErrorMessage("confirmPassword", "Passwords should Match"));
+			errorMessageList.add(new Message("confirmPassword", "Passwords should Match"));
 		}
 		
 		if(errorMessageList.size()==0){
@@ -316,8 +328,8 @@ public class UserController {
 	}
 	
 	@SuppressWarnings("unused")
-	@RequestMapping(value="/profile/securityQuestion.json",method = RequestMethod.POST)
-	public @ResponseBody SecurityQuestionAjaxResponse sendSecurityQuestion(@RequestParam("j_username") String un){
+	@RequestMapping(value="/ads/addToFavs",method = RequestMethod.POST)
+	public @ResponseBody Message sendSecurityQuestion(@RequestParam("adId") String adId){
 		
 		// I am using a thread.sleep here because I want to see wether
 		// the loading animations on client side is working.
@@ -332,20 +344,37 @@ public class UserController {
 		}
 		// END TRY CATCH : NOTE REMOVE THIS BEFORE DEPLOYING
 		
-		User user=  userDao.findByUsername(un);
+		Message response;
 		
-		SecurityQuestionAjaxResponse response = new SecurityQuestionAjaxResponse();
-		
-		if(user != null){
-			response.setStatus("OK");
-			response.setQuestion(user.getQuestion());
-			response.setUsername(user.getUsername());
-			response.setName(user.getName());
+		if(UserService.isUserLoggedIn()){
+			User user = UserService.getCurrentUser();
+			
+			FavItem favItem = new FavItem(user,adDao.getAdById(adId));
+			
+			//user = userDao.fi
+			
+			boolean found = false;
+			
+			for(int i=0;i<user.getAllFavItems().size();i++){
+				if(user.getAllFavItems().get(i).getAd().getAdId().equals(favItem.getAd().getAdId())){
+					
+					found = true;
+				}
+			}
+
+			if(!found){
+				user.getAllFavItems().add(favItem);
+				userDao.update(user);
+				response = new Message("adSummaryMsg", "This Ad (id="+adId+") is added to your wish list.");
+			}
+			else{
+				
+				response = new Message("adSummaryMsg", "This Ad (id="+adId+") is already in your wish list.");
+			}	
 		}
 		else{
 
-			response.setStatus("NOT FOUND");
-
+			response = new Message("adSummaryMsg", "Sorry You are not logged in.");
 		}
 		
 		return response; 

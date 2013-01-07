@@ -1,11 +1,11 @@
 package com.slclassifieds.adsonline.model;
 
-public class ErrorMessage {
+public class Message {
 
 	private String fieldName;
 	private String message;
 	
-	public ErrorMessage(String fieldName, String message) {
+	public Message(String fieldName, String message) {
 		this.fieldName = fieldName;
 		this.message = message;
 	}

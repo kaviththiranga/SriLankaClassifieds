@@ -13,10 +13,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -63,19 +66,25 @@ public class User implements Serializable, UserDetails {
 	@Column(name = "DISTRICT")
 	private String district;
 	
+	@LazyCollection(LazyCollectionOption.FALSE)
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "user_role", 
 				joinColumns = { @JoinColumn(name = "USER_ID") }, 
 				inverseJoinColumns = { @JoinColumn(name = "USER_ROLE_ID") })
 	private List<UserRole> userRoles;
 	
-	@OneToMany(mappedBy="user", fetch=FetchType.LAZY)
+
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@OneToMany(mappedBy="user")
+	private List<FavItem> allFavItem;
+	
+	@OneToMany(mappedBy="user")
 	private List<Advertisement> allAds;
 	
-	@OneToMany(mappedBy="user", fetch=FetchType.LAZY)
+	@OneToMany(mappedBy="user")
 	private List<Bid> allBids;
 	
-	@OneToMany(mappedBy="user", fetch=FetchType.LAZY)
+	@OneToMany(mappedBy="user")
 	private List<Comment> allComments;
 	
 	public User(){
@@ -220,6 +229,16 @@ public class User implements Serializable, UserDetails {
 	public boolean isEnabled() {
 	
 		return (enabled==0)?false:true;
+	}
+	
+	
+
+	public List<FavItem> getAllFavItems() {
+		return allFavItem;
+	}
+
+	public void setAllFavItems(List<FavItem> allFavAds) {
+		this.allFavItem = allFavAds;
 	}
 
 	public List<Advertisement> getAllAds() {

@@ -194,16 +194,17 @@
 			return false;
 		});
 	});
-	 $(document).ajaxSend(function(event, request, settings) {
-		   $('.loading-indicator').show();
-		  
 
-	 });
-		 
-	 $(document).ajaxComplete(function(event, request, settings) {
-	   		$('.loading-indicator').hide();
-	   	
-	 });
+    $(document).ajaxSend(function(event, request, settings) {
+    	   $('.loading-indicator').show();
+    	  
+
+    });
+    	 
+    $(document).ajaxComplete(function(event, request, settings) {
+    		$('.loading-indicator').hide();
+    	
+    });
 
 </script>
 <%@ include file="/WEB-INF/views/includes/footer.jsp" %>

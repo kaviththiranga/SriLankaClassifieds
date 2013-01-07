@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.transaction.annotation.Transactional;
 
+import com.slclassifieds.adsonline.model.Advertisement;
 import com.slclassifieds.adsonline.model.Category;
 import com.slclassifieds.adsonline.model.User;
 import com.slclassifieds.adsonline.model.UserRole;
@@ -21,5 +22,6 @@ public interface UserDao {
 	public UserRole getUserRoleByName(String roleName);
 	public List<UserRole> getUserRolesByUserId(String userId);
 	public void addNewUserRole(UserRole uR);
+	public List<Advertisement> getFavAdsByUserId(String userId);
 
 }

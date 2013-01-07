@@ -3,7 +3,7 @@ import java.util.List;
 
 public class ValidationResponse {
 	private String status;
-	private List<ErrorMessage> errorMessageList;
+	private List<Message> errorMessageList;
 	
 	public String getStatus() {
 		return status;
@@ -11,10 +11,10 @@ public class ValidationResponse {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	public List<ErrorMessage> getErrorMessageList() {
+	public List<Message> getErrorMessageList() {
 		return this.errorMessageList;
 	}
-	public void setErrorMessageList(List<ErrorMessage> errorMessageList) {
+	public void setErrorMessageList(List<Message> errorMessageList) {
 		this.errorMessageList = errorMessageList;
 	}
 	
