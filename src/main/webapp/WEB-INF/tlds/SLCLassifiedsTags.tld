@@ -3,23 +3,7 @@
   <tlib-version>1.0</tlib-version>
   <short-name>slclassifiedstags</short-name>
   <uri>com.slclassifieds.adsonline.tags</uri>
-  <!-- A validator verifies that the tags are used correctly at JSP
-          translation time. Validator entries look like this: 
-       <validator>
-           <validator-class>com.mycompany.TagLibValidator</validator-class>
-           <init-param>
-              <param-name>parameter</param-name>
-              <param-value>value</param-value>
-        	  </init-param>
-       </validator>
-    -->
-  <!-- A tag library can register Servlet Context event listeners in
-         case it needs to react to such events. Listener entries look
-         like this: 
-      <listener>
-          <listener-class>com.mycompany.TagLibListener</listener-class> 
-      </listener>
-    -->
+ 
   <tag>
     <name>PrintAd</name>
     <tag-class>com.slclassifieds.adsonline.web.tags.PrintAd</tag-class>
@@ -37,7 +21,21 @@
       <type>boolean</type>
     </attribute>
   </tag>
-  <tag>
   
+  <tag>
+    <name>TimeDef</name>
+    <tag-class>com.slclassifieds.adsonline.web.tags.TimeDef</tag-class>
+    <body-content>scriptless</body-content>
+    <attribute>
+      <name>createdOn</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+      <type>java.util.Date</type>
+    </attribute>
   </tag>
+  
+  <tag-file>
+    <name>DisplayAdSummary</name>
+    <path>/WEB-INF/tags/DisplayAdSummary.tag</path>
+  </tag-file>
 </taglib>

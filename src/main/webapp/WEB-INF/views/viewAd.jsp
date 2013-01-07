@@ -8,8 +8,10 @@
 </ul>
 <%@ include file="/WEB-INF/views/includes/msgIFrame.jsp" %>	
 
+<slclassifieds:DisplayAdSummary  ad="${ad}"/>
 <slclassifieds:PrintAd summaryMode="${false}" advertisement="${ad}"/>
 
+<slclassifieds:DisplayAdSummary  ad="${ad2}"/>
 <slclassifieds:PrintAd summaryMode="${false}" advertisement="${ad2}"/>
 
 <h1 id="comments"></h1>
