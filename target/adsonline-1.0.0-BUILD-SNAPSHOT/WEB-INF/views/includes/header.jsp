@@ -9,19 +9,23 @@
 		<spring:url value="/resources/bootstrap/css/bootstrap.css" var="bootstrapUrl" />
 		<spring:url value="/resources/bootstrap/js/bootstrap.js" var="bootstrapJsUrl" />
 		<spring:url value="/resources/jquery-1.8.3.min.js" var="JQueryUrl" />
+		<spring:url value="/resources/jQuery.maxlen.js" var="JQueryMaxLenUrl" />		
 		<spring:url value="/resources/styles/notifications.css" var="notificssUrl" />
 		<link href="${sitemaincssUrl}" rel="stylesheet"/>
 		<link href="${bootstrapUrl}" rel="stylesheet"/>
 		<link href="${notificssUrl}" rel="stylesheet"/>
+		
 		<script type="text/javascript" src="${JQueryUrl}"></script>
 		<script type="text/javascript" src="${bootstrapJsUrl}"></script>
-		<script type="text/javascript">
+		<script type="text/javascript" src="${JQueryMaxLenUrl}"></script>
+		 <script type="text/javascript">
 				window.onload = function()
 		        {		
 					$('#msgmodel').modal('show')
 		        };
 		</script>
 		
+	<div id="top"></div>	
 	</head>
 	<body>
 		<div class="container" style="padding-top: 50px;">
@@ -72,13 +76,15 @@
 					</security:authorize>
 					
 					    <security:authorize access="! isAuthenticated()">
+					    	<a href="<spring:url value="/register"/>" >register</a><span class="divider"> /</span>
 					        <a href="login" data-toggle="modal" data-target="#loginFormModel">
-					        		Sign In
+					        		login
 					        		<i class="icon-user"></i>
 					        </a>
+					        
 				        	<div id="registerNow" >
-								<a href="register">
-								<img src="resources/images/RegisterNow.gif" alt="Register Now" />
+								<a href="<spring:url value="/register"/>">
+								<img src="<spring:url value="/resources/images/RegisterNow.gif"/>" alt="Register Now" />
 								</a>
 							</div>
 					    </security:authorize>			
@@ -100,7 +106,9 @@
 						<ul class="nav">
 							<li><a href="<spring:url value="/home"/>">Home</a></li>
 							<li><a href="<spring:url value="/register"/>">Register</a></li>
+							<li><a href="<spring:url value="/ads/new"/>">Post a Ad</a></li>
 							<li><a href="<spring:url value="/profile"/>">Profile</a></li>
+							
 							    
 						</ul>
 						<!-- <form class="navbar-search pull-right" method="get" action="/search">
