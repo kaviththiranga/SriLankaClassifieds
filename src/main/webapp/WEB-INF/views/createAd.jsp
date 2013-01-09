@@ -8,7 +8,7 @@
 	    <li class="active">new</li>
 </ul>
 <%@ include file="/WEB-INF/views/includes/msgIFrame.jsp" %>	
-
+<spring:url value="/ads/uploadImage" var="imgUploadUrl"/>
 <div class="row"  >
 	<div class="span12" style="padding-left: 20px;">
 	
@@ -68,15 +68,18 @@
 						<button class="btn " type="reset" style="margin-left:10px;">Reset</button>	
 					</div>
 		</div>
-		<spring:url value="/ads/uploadImage" var="imgUploadUrl"/>
+		</fieldset>
+		</form:form>
+		<form id="createAd" class="form-horizontal" method="POST" action="${imgUploadUrl}"  enctype="multipart/form-data" >
 		<div class="span4 well">
 			<h6>Upload Images</h6>
 			<span id='filename'></span>
 			<a href="#" id="addImage">add an image</a>
-			<input id="uploadImg" type="file" name="file" data-url="${imgUploadUrl}" multiple style="opacity: 0; filter:alpha(opacity: 0);"/>
+			<input id="uploadImg" type="file" name="files" style="opacity: 0; filter:alpha(opacity: 0);" multiple="multiple" >
+			<button class="btn btn-primary" value="Register" type="submit">Upload</button>
 		</div>
-		</fieldset>
-		</form:form>
+		
+		</form>
 	</div>
 </div>
 <script type="text/javascript">
