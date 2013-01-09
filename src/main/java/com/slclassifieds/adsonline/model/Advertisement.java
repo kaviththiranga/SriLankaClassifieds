@@ -11,6 +11,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
@@ -50,18 +51,16 @@ public class Advertisement implements Serializable {
 	@Column(name = "PRICE")
 	private double price;
 	
-	@Column(name ="IMG1" , nullable = true)
-	private String imageOne;
-	
-	@Column(name ="IMG2" , nullable = true)
-	private String imageTwo;
-	
-	@Column(name ="IMG3" , nullable = true)
-	private String imageThree;
-	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name ="CREATED")
 	private Date createdOn;
+	
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "ad_image", 
+				joinColumns = { @JoinColumn(name = "AD_ID") }, 
+				inverseJoinColumns = { @JoinColumn(name = "IMG_ID") })
+	private List<Image> images;
 	
 	@OneToMany(mappedBy="ad")
 	@LazyCollection(LazyCollectionOption.FALSE)
@@ -122,36 +121,21 @@ public class Advertisement implements Serializable {
 		this.price = price;
 	}
 
-	public String getImageOne() {
-		return imageOne;
-	}
-
-	public void setImageOne(String imageOne) {
-		this.imageOne = imageOne;
-	}
-
-	public String getImageTwo() {
-		return imageTwo;
-	}
-
-	public void setImageTwo(String imageTwo) {
-		this.imageTwo = imageTwo;
-	}
-
-	public String getImageThree() {
-		return imageThree;
-	}
-
-	public void setImageThree(String imageThree) {
-		this.imageThree = imageThree;
-	}
-
 	public Date getCreatedOn() {
 		return createdOn;
 	}
 
 	public void setCreatedOn(Date createdOn) {
 		this.createdOn = createdOn;
+	}
+
+	
+	public List<Image> getImages() {
+		return images;
+	}
+
+	public void setImages(List<Image> images) {
+		this.images = images;
 	}
 
 	public List<Bid> getAllBids() {

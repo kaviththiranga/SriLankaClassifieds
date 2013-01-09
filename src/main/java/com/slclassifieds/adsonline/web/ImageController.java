@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.slclassifieds.adsonline.model.UploadedImage;
+import com.slclassifieds.adsonline.model.Image;
 
 @Controller
 public class ImageController {
@@ -22,11 +22,11 @@ public class ImageController {
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
 	@RequestMapping(value="/ads/uploadImage", method=RequestMethod.POST)
-	public @ResponseBody List<UploadedImage> upload(
+	public @ResponseBody List<Image> upload(
 			@RequestParam("file") MultipartFile file, HttpServletRequest req) {
 		
-		List<UploadedImage> uploadedFiles = new ArrayList<UploadedImage>();
-		UploadedImage u = new UploadedImage();
+		List<Image> uploadedFiles = new ArrayList<Image>();
+		Image u = new Image();
 		u.setName(file.getOriginalFilename());
 		u.setUrl("/resources/images/uploaded/"+u.getName());
 

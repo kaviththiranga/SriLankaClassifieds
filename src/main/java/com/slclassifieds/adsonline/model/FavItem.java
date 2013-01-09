@@ -12,7 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="favs")
+@Table(name="user_fav_ad")
 public class FavItem implements Serializable{
 
 	private static final long serialVersionUID = 1L;

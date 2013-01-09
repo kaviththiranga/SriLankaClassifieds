@@ -3,7 +3,11 @@
 
 <%@ attribute name="ad" required="true" rtexprvalue="true" type="com.slclassifieds.adsonline.model.Advertisement"%>
 
-<spring:url value="/${ad.imageOne}" var="imageOneUrl"/>
+<c:forEach items="${ad.images}" var="img" varStatus="status">
+	<spring:url value="/${img.url}" var="imageOneUrl"/>
+	<spring:url value="/${img.thumbnail_url}" var="imageOneThumbUrl"/>
+</c:forEach>
+
 <spring:url value="/viewProfile?userId=${ad.user.userId}" var="profileLink"/>
 <spring:url value="/ads/viewAd?adId=${ad.adId}" var="adLink"/>
 <spring:url value="/ads/viewAdsByCategory?catId=${ad.category.catId}" var="catLink"/>
@@ -12,9 +16,11 @@
 <div class="well">
 	<div class="row">
 	     <div class="span3">
-		    <a href="${imageOneUrl}" class="thumbnail">
-		    	<img src="${imageOneUrl}" alt=""/>
-		    </a>
+	     	
+	     	<div id="gallery" data-toggle="modal-gallery" data-target="#modal-gallery" data-selector="img.gallery-item">
+	     		<a href="" onclick="return false" class="thumbnail"><img class="gallery-item" data-href="${imageOneUrl}" src="${imageOneUrl}" alt=""/></a>
+	     		<a href="" onclick="return false" class="thumbnail" style="display: none;"><img class="gallery-item" data-href="${imageOneUrl}" src="${imageOneUrl}" alt=""/></a>
+			</div>
 		    <ul class="unstyled" style="text-align: right;margin-top: 10px;">
 		    	<li >seller : <a rel="tooltip" title="Click here to view details of seller ${ad.user.username}" href="${profileLink}">${ad.user.username}</a></li>
 				 <li >category : <a rel="tooltip" title="Click here to view ads under ${ad.category.catName} category" href="${catLink}">${ad.category.catName}</a></li>          	

@@ -7,19 +7,25 @@
 		
 		<spring:url value="/resources/styles/style.css" var="sitemaincssUrl" />	
 		<spring:url value="/resources/bootstrap/css/bootstrap.css" var="bootstrapUrl" />
+		<spring:url value="/resources/bootstrap/css/bootstrap-image-gallery.min.css" var="imgGalleryCssUrl" />
 		<spring:url value="/resources/bootstrap/js/bootstrap.js" var="bootstrapJsUrl" />
+		<spring:url value="/resources/bootstrap/js/load-image.min.js" var="loadImageJsUrl" />
+		<spring:url value="/resources/bootstrap/js/bootstrap-image-gallery.min.js" var="imageGalleryJsUrl" />
 		<spring:url value="/resources/jquery-1.8.3.min.js" var="JQueryUrl" />
 		<spring:url value="/resources/jQuery.maxlen.js" var="JQueryMaxLenUrl" />		
 		<spring:url value="/resources/styles/notifications.css" var="notificssUrl" />
 		<spring:url value="/resources/bootstrap/css/font-awesome.min.css" var="fontAwesomeUrl" />
 		<link href="${sitemaincssUrl}" rel="stylesheet"/>
 		<link href="${bootstrapUrl}" rel="stylesheet"/>
-		<link href="${notificssUrl}" rel="stylesheet"/>
 		<link href="${fontAwesomeUrl}" rel="stylesheet"/>
+		<link href="${notificssUrl}" rel="stylesheet"/>
+		<link href="${imgGalleryCssUrl}" rel="stylesheet"/>
 		
 		<script type="text/javascript" src="${JQueryUrl}"></script>
 		<script type="text/javascript" src="${bootstrapJsUrl}"></script>
 		<script type="text/javascript" src="${JQueryMaxLenUrl}"></script>
+		<script type="text/javascript" src="${loadImageJsUrl}"></script>
+		<script type="text/javascript" src="${imageGalleryJsUrl}"></script>
 		 <script type="text/javascript">
 				window.onload = function()
 		        {		
@@ -128,5 +134,6 @@
 			</div>
 		</div>
 		<div class="container">
-			<%@ include file="/WEB-INF/views/includes/loginIFrame.jsp" %>	
+			<%@ include file="/WEB-INF/views/includes/loginIFrame.jsp" %>
+			<%@ include file="/WEB-INF/views/includes/imgGallery.jsp" %>		
 			

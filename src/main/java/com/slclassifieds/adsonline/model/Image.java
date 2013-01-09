@@ -2,29 +2,55 @@ package com.slclassifieds.adsonline.model;
 
 import java.io.Serializable;
 
-public class UploadedImage implements Serializable {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
+@Entity
+@Table(name="images")
+public class Image implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	@Id
+	@GeneratedValue
+	@Column(name = "IMG_ID")
+	private String imgID;
+	
+	@Transient
 	private String name;
+	
+	@Transient
 	private Integer size;
+	
+	@Column(name = "URL")
 	private String url;
+	
+	@Column(name = "THUMB_URL")
 	private String thumbnail_url;
+	
+	@Transient
 	private String delete_url;
+	
+	@Transient
 	private String delete_type;
 	
-	public UploadedImage() {
+	public Image() {
 		super();
 	}
 	
-	public UploadedImage(String name, Integer size, String url) {
+	
+	public Image(String name, Integer size, String url) {
 		super();
 		this.name = name;
 		this.size = size;
 		this.url = url;
 	}
 	
-	public UploadedImage(String name, Integer size, String url,
+	public Image(String name, Integer size, String url,
 			String thumbnail_url, String delete_url, String delete_type) {
 		super();
 		this.name = name;
@@ -34,6 +60,18 @@ public class UploadedImage implements Serializable {
 		this.delete_url = delete_url;
 		this.delete_type = delete_type;
 	}
+	
+	
+
+	public String getImgID() {
+		return imgID;
+	}
+
+
+	public void setImgID(String imgID) {
+		this.imgID = imgID;
+	}
+
 
 	public String getName() {
 		return name;
