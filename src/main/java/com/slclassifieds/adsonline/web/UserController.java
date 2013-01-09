@@ -329,7 +329,7 @@ public class UserController {
 	
 	@SuppressWarnings("unused")
 	@RequestMapping(value="/ads/addToFavs",method = RequestMethod.POST)
-	public @ResponseBody Message sendSecurityQuestion(@RequestParam("adId") String adId){
+	public @ResponseBody Message addToFavs(@RequestParam("adId") String adId){
 		
 		// I am using a thread.sleep here because I want to see wether
 		// the loading animations on client side is working.
@@ -365,16 +365,16 @@ public class UserController {
 			if(!found){
 				user.getAllFavItems().add(favItem);
 				userDao.update(user);
-				response = new Message("adSummaryMsg", "This Ad (id="+adId+") is added to your wish list.");
+				response = new Message("adSummaryMsg", "This Ad is added to your wish list.","text-success");
 			}
 			else{
 				
-				response = new Message("adSummaryMsg", "This Ad (id="+adId+") is already in your wish list.");
+				response = new Message("adSummaryMsg", "This Ad is already in your wish list.","text-info");
 			}	
 		}
 		else{
 
-			response = new Message("adSummaryMsg", "Sorry You are not logged in.");
+			response = new Message("adSummaryMsg", "Sorry You are not logged in.","text-error");
 		}
 		
 		return response; 
@@ -425,6 +425,42 @@ public class UserController {
 		return response; 
 		
 	}
+	@SuppressWarnings("unused")
+	@RequestMapping(value="/profile/securityQuestion.json",method = RequestMethod.POST)
+	public @ResponseBody SecurityQuestionAjaxResponse sendSecurityQuestion(@RequestParam("j_username") String un){
+		
+		// I am using a thread.sleep here because I want to see wether
+		// the loading animations on client side is working.
+		// Since I am testing the site in a local server, response is received very quickly.
+		// So we didn't get enough time to see loading animations
+		// Remove this try catch block when deploying in actual server
+		try {
+			Thread.sleep(500);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		// END TRY CATCH : NOTE REMOVE THIS BEFORE DEPLOYING
+		
+		User user=  userDao.findByUsername(un);
+		
+		SecurityQuestionAjaxResponse response = new SecurityQuestionAjaxResponse();
+		
+		if(user != null){
+			response.setStatus("OK");
+			response.setQuestion(user.getQuestion());
+			response.setUsername(user.getUsername());
+			response.setName(user.getName());
+		}
+		else{
+
+			response.setStatus("NOT FOUND");
+
+		}
+		
+		return response; 
+		
+	}
 	
 	@RequestMapping(value="/profile",method = RequestMethod.GET)
 	public String initProfileView(ModelMap model){
@@ -438,7 +474,10 @@ public class UserController {
 		}
 		
 		User user = UserService.getCurrentUser();
+		Integer size = user.getAllFavItems().size();
+		
 		model.addAttribute("user", user);
+		model.addAttribute("fav", size );
 		return "profile";
 	}
 	

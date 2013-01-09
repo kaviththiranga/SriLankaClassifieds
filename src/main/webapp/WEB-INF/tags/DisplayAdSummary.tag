@@ -15,40 +15,45 @@
 		    <a href="${imageOneUrl}" class="thumbnail">
 		    	<img src="${imageOneUrl}" alt=""/>
 		    </a>
+		    <ul class="unstyled" style="text-align: right;margin-top: 10px;">
+		    	<li >seller : <a rel="tooltip" title="Click here to view details of seller ${ad.user.username}" href="${profileLink}">${ad.user.username}</a></li>
+				 <li >category : <a rel="tooltip" title="Click here to view ads under ${ad.category.catName} category" href="${catLink}">${ad.category.catName}</a></li>          	
+				
+		    </ul>
 		</div>
 		<div class="span8" >
 		    <ul class="inline" >		           
 				<li><a rel="tooltip" title="Click here to view this ad" href="${adLink}"><h4>${ad.title}</h4></a></li>	
 				
 				
-				<li><a id="addToFav${ad.adId}" href="${addToFavLink}" rel="tooltip" title="Click here to add this wish list"   ><i class="icon-star-empty"></i></a></li>		           	
+				<li><a id="addToFav${ad.adId}" href="${addToFavLink}" rel="tooltip" title="Click here to add this wish list"   ><i class="icon-star icon-1x" style="color: #FFCC00;"></i></a></li>		           	
 				<li><img style="display: none;" src="<spring:url value="/resources/images/ajax-loader.gif"/>" id="loading-indicator${ad.adId}"/></li>
 				
-				<li style="font-size:small;"> Category : <a rel="tooltip" title="Click here to view ads under this category" href="${catLink}">${ad.category.catName}</a></li>
-				
-				<li style="font-size:small;">Posted by : <a rel="tooltip" title="Click here to view details of seller" href="${profileLink}">${ad.user.username}</a></li>
-				           	
-				<li style="font-size:small;">${ad.user.district},<slclassifieds:TimeDef createdOn="${ad.createdOn}"/> ago</li>
+				<li style="font-size:small;">${ad.user.district}, <slclassifieds:TimeDef createdOn="${ad.createdOn}"/> ago</li>
 			</ul>
-			<p>${fn:substring(ad.desc,0,100)}...<a rel="tooltip" title="Click here to view this ad" href="${adLink}">read more</a></p>
-			
-			<p>
-				<a class="btn  btn-success btn" href="${adLink}">View</a>
+			<blockquote>
+				<p>${fn:substring(ad.desc,0,120)}...</p>
+				<small><a rel="tooltip" title="Click here to view this ad" href="${adLink}">read more</a></small>
+			</blockquote>
+			<div class="span3">
+				<!-- <a class="btn  btn-success btn" href="${adLink}">View</a> -->
 			           
 			 	<security:authorize access="isAuthenticated()">
 			           
-			       <a class="btn btn-primary btn" href="${adLink}#bid">Bid</a>
+			       <a class="btn btn-success btn" href="${adLink}#bid">Bid</a>
 			       
 			 	</security:authorize>
 			         
 			 	<a class="btn btn btn-primary disabled">Rs. <fmt:formatNumber type="number" maxFractionDigits="2" value="${ad.price}" /> /- </a>
-			 	<label id="adSummaryMsg${ad.adId}"></label>
-			 </p>
-			 <div style="text-align:right;">
-			     <p>
-			     	<a rel="tooltip" title="Click here to view comments" href="${adLink}#comments">${fn:length(ad.allComments)} comments</a>
+			 	
+			 </div>
+			 <div class="inline" style="text-align:right;padding-top: 10px;">
+			     <ul class="inline" >
+			     	<li><label id="adSummaryMsg${ad.adId}" style="text-align:right;"></label></li>
+			     	<li><a rel="tooltip" title="Click here to view comments" href="${adLink}#comments">${fn:length(ad.allComments)} comments</a></li>
 			      	| 
-			      	<a  rel="tooltip" title="Click here to view bids" href="${adLink}#bids">${fn:length(ad.allBids)} bids</a></p>
+			      	<li><a  rel="tooltip" title="Click here to view bids" href="${adLink}#bids">${fn:length(ad.allBids)} bids</a></li>
+			      </ul>	
 			  </div>         
 		</div>
 	             
@@ -64,6 +69,7 @@ $(document).ready(function() {
 		$.post('${addToFavLink}', data, function(response) {
 			
 			$("#adSummaryMsg${ad.adId}").text(response.message);
+			$("#adSummaryMsg${ad.adId}").attr('class' , response.style);
 			
 		}, 'json');
 		
@@ -74,14 +80,19 @@ $(document).ready(function() {
 });
 
 $(document).ajaxSend(function(event, request, settings) {
+	
+	if(settings.url == '${addToFavLink}'){
 	   $('#loading-indicator${ad.adId}').show();
-	  
+	   $("#addToFav${ad.adId}").hide();
+	} 
 
 });
 	 
 $(document).ajaxComplete(function(event, request, settings) {
+	if(settings.url == '${addToFavLink}'){
 		$('#loading-indicator${ad.adId}').hide();
-	
+		 $("#addToFav${ad.adId}").show();
+	}
 });
 
 </script>
