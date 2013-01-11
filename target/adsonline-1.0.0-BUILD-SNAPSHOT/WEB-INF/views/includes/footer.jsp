@@ -10,12 +10,20 @@
 			</div>
 			
 			<div class="container" style="text-align: right;padding-top: 0px;">			
-				<a class="textLink" href="url">About</a> |
-				<a class="textLink" href="url">Terms</a> |
-				<a class="textLink" href="url">Policy</a>
+				<a class="textLink" rel="tooltip" title="See About us" href="url">About</a> |
+				<a class="textLink" rel="tooltip" title="Terms and Conditions" href="url">Terms</a> |
+				<a class="textLink" rel="tooltip" title="View our policy" href="url">Policy</a>
 
 			</div>
-			
+		<script type="text/javascript">
+              $(document).ready(function () {
+                $("a").tooltip({
+                  'selector': '',
+                  'placement': 'bottom'
+                });
+                console.log("jimmy");
+              });
+         </script>	
 		<script type="text/javascript">			
 	        function scrollWin(){
 	        	$('html,body').animate({
@@ -30,6 +38,7 @@
 		             $().maxlength();
 		             
 		    });
+
 		</script>
 			<footer style="text-align: right;">  
 				<p>SL Classifieds © Company 2012</p>

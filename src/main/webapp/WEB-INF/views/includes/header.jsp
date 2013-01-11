@@ -22,17 +22,33 @@
 		<link href="${imgGalleryCssUrl}" rel="stylesheet"/>
 		
 		<script type="text/javascript" src="${JQueryUrl}"></script>
-		<script type="text/javascript" src="${bootstrapJsUrl}"></script>
+		
 		<script type="text/javascript" src="${JQueryMaxLenUrl}"></script>
+		
+		
+		
+		
+		<spring:url value="/" var="root"/>
+		<script type="text/javascript"  src="${root}resources/JqueryPlugins/jQueryFileUpload/js/jquery.ui.widget.js"></script>
+		<script type="text/javascript"  src="${root}resources/JqueryPlugins/jQueryFileUpload/js/tmpl.min.js"></script>
 		<script type="text/javascript" src="${loadImageJsUrl}"></script>
+		<script type="text/javascript"  src="${root}resources/JqueryPlugins/jQueryFileUpload/js/canvas-to-blob.min.js"></script>
+		<script type="text/javascript" src="${bootstrapJsUrl}"></script>
 		<script type="text/javascript" src="${imageGalleryJsUrl}"></script>
+		<script type="text/javascript" src="${root}resources/JqueryPlugins/jQueryFileUpload/js/jquery.iframe-transport.js"></script>
+		<script type="text/javascript"  src="${root}resources/JqueryPlugins/jQueryFileUpload/js/jquery.fileupload.js"></script>
+		
+		<script type="text/javascript"  src="${root}resources/JqueryPlugins/jQueryFileUpload/js/jquery.fileupload-fp.js"></script>
+		
+		<script type="text/javascript"  src="${root}resources/JqueryPlugins/jQueryFileUpload/js/jquery.fileupload-ui.js"></script>		
+		<script type="text/javascript"  src="${root}resources/JqueryPlugins/jQueryFileUpload/js/main.js"></script>
+		<link rel="stylesheet" href="${root}resources/JqueryPlugins/jQueryFileUpload/css/jquery.fileupload-ui.css">
 		 <script type="text/javascript">
 				window.onload = function()
 		        {		
 					$('#msgmodel').modal('show')
 		        };
 		</script>
-		
 	<div id="top"></div>	
 	</head>
 	<body>

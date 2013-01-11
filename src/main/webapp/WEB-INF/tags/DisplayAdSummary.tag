@@ -13,11 +13,11 @@
 <spring:url value="/ads/viewAdsByCategory?catId=${ad.category.catId}" var="catLink"/>
 <spring:url value="/ads/addToFavs?adId=${ad.adId}" var="addToFavLink"/>
 
-<div class="well">
+<div class="well" style="border-radius:20px">
 	<div class="row">
 	     <div class="span3">
 	     	
-	     	<div id="gallery" data-toggle="modal-gallery" data-target="#modal-gallery" data-selector="img.gallery-item">
+	     	<div id="gallery" data-toggle="modal-gallery" data-target="#modal-gallery1" data-selector="img.gallery-item">
 	     		<a href="" onclick="return false" class="thumbnail"><img class="gallery-item" data-href="${imageOneUrl}" src="${imageOneUrl}" alt=""/></a>
 	     		<a href="" onclick="return false" class="thumbnail" style="display: none;"><img class="gallery-item" data-href="${imageOneUrl}" src="${imageOneUrl}" alt=""/></a>
 			</div>

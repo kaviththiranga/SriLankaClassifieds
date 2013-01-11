@@ -31,7 +31,7 @@ public class PrintAd extends SimpleTagSupport {
         HttpServletRequest request = (HttpServletRequest ) ((PageContext) getJspContext()).getRequest();
         String root = request.getContextPath();
         
-        String imgOneLink = root+advertisement.getImageOne();
+        String imgOneLink = root;//+advertisement.getImageOne();
         String profileLink=root+"/viewProfile?userId="+advertisement.getUser().getUserId();
         String userName = advertisement.getUser().getUsername();
         String adLink = root+"/ads/viewAd?adId="+ advertisement.getAdId();
