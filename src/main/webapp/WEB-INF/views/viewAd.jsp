@@ -10,5 +10,7 @@
 
 <slclassifieds:DisplayAdSummary  ad="${ad}"/>
 <slclassifieds:DisplayAdSummary  ad="${ad2}"/>
+
+<img src="<spring:url value="/images?img=Jellyfish.jpg"/>">
 <h1 id="comments"></h1>
 <%@ include file="/WEB-INF/views/includes/footer.jsp" %>

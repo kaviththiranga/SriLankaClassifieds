@@ -59,6 +59,10 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 	
+	<context-param>
+		<param-name>image_root</param-name>
+		<param-value>D:\temp\</param-value>
+	</context-param>
 		
     <error-page>
     	<exception-type>java.lang.Throwable</exception-type>

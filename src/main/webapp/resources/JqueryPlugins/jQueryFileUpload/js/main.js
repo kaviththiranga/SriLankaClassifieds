@@ -19,7 +19,25 @@ $(function () {
     $('#fileupload').fileupload({
         // Uncomment the following to send cross-domain cookies:
         //xhrFields: {withCredentials: true},
-        url: '/adsonline/ads/uploadImage'
+        url: '/adsonline/ads/uploadImage',
+        maxFileSize: 5000000,
+        acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
+        process: [
+            {
+                action: 'load',
+                fileTypes: /^image\/(gif|jpeg|png)$/,
+                maxFileSize: 20000000 // 20MB
+            },
+            {
+                action: 'resize',
+                maxWidth: 1440,
+                maxHeight: 900
+            },
+            {
+                action: 'save'
+            }
+        ]
+        	
     });
 
     // Enable iframe cross-domain access via redirect option:

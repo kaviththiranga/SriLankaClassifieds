@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.servlet.ServletContext;
 
 @Entity
 @Table(name="images")
@@ -20,7 +21,7 @@ public class Image implements Serializable {
 	@Column(name = "IMG_ID")
 	private String imgID;
 	
-	@Transient
+	@Column(name="IMG_NAME")
 	private String name;
 	
 	@Transient
@@ -48,6 +49,7 @@ public class Image implements Serializable {
 		this.name = name;
 		this.size = size;
 		this.url = url;
+	
 	}
 	
 	public Image(String name, Integer size, String url,
@@ -90,6 +92,8 @@ public class Image implements Serializable {
 	}
 
 	public String getUrl() {
+		
+		
 		return url;
 	}
 
