@@ -34,6 +34,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.slclassifieds.adsonline.dao.AdvertisementDao;
+import com.slclassifieds.adsonline.dao.ImageDao;
 import com.slclassifieds.adsonline.model.Advertisement;
 import com.slclassifieds.adsonline.model.Image;
 import com.slclassifieds.adsonline.service.UserService;
@@ -47,7 +48,7 @@ public class ImageController {
 	private ServletContext context;
 	
 	@Autowired	
-	private AdvertisementDao adDao;
+	private ImageDao imgDao;
 	
 	@RequestMapping(value="/ads/uploadImage", method=RequestMethod.POST)
 	public @ResponseBody HashMap<String, Object> upload(@RequestParam("files[]") MultipartFile[] imgs){
@@ -83,15 +84,15 @@ public class ImageController {
 	            	 
 	            	 if(UserService.isUserLoggedIn()){
 	            		 
-	            		 fileName =UserService.getCurrentUser().getUsername()+(new Date()).getTime()+"."+ext;
-	            		 thumbName = UserService.getCurrentUser().getUsername()+(new Date()).getTime()+"_thumb."+ext;
+	            		 fileName =RandomStringUtils.randomAlphanumeric(4)+UserService.getCurrentUser().getUsername()+(new Date()).getTime()+"."+ext;
+	            		 thumbName = RandomStringUtils.randomAlphanumeric(4)+UserService.getCurrentUser().getUsername()+(new Date()).getTime()+"_thumb."+ext;
 	            	 }
 	            	 else{
 	            		 
 	            		 fileName = RandomStringUtils.randomAlphanumeric(4)+fi.getOriginalFilename()+(new Date()).getTime()+"."+ext;
 	            		 thumbName = RandomStringUtils.randomAlphanumeric(4)+fi.getOriginalFilename()+(new Date()).getTime()+"_thumb."+ext;
 	            	 }
-	                                                
+	            	                             
                      file = new File( filePath + fileName) ;
                      System.out.println(file.getName()); 
                   
@@ -107,7 +108,7 @@ public class ImageController {
 	                  img.setUrl("/images?img="+fileName);
 	                  img.setThumbnail_url("/images?img="+"thumbs/"+thumbName);
 	                  uploadedFiles.add(img);
-	                  adDao.save(img);
+	                  imgDao.save(img);
 	             }
 	       
 	    }catch (Exception ex) {logger.info(ex.getMessage());}

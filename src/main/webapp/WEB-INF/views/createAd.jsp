@@ -9,7 +9,7 @@
 <ul class="breadcrumb" style="background-color: transparent;">
 		<li>You are here<span class="divider">/</span></li>
 	    <li><a href="<spring:url value="/home"/>">Home</a> <span class="divider">/</span></li>
-	    <li><a href="<spring:url value="/ads"/>">ads</a> <span class="divider">/</span></li>
+	    <li><a href="<spring:url value="/ads/viewAllAds"/>">ads</a> <span class="divider">/</span></li>
 	    <li class="active">new</li>
 </ul>
 <%@ include file="/WEB-INF/views/includes/msgIFrame.jsp" %>	
@@ -34,6 +34,16 @@
 						    </form:select>
 							<span class="help-inline">
 								<form:errors path="category" cssClass="text-error" element="label" />
+							</span>
+						</div>
+					</div>
+					<div class="control-group" id="isBuying">						
+						<label class="control-label">Buying or Selling</label>						
+						<div class="controls">
+							<form:radiobutton path="isBuying" value="1"/>Buying 
+							<form:radiobutton path="isBuying" value="0"/> Selling
+							<span class="help-inline">
+								<form:errors path="isBuying" cssClass="text-error" element="label" />
 							</span>
 						</div>
 					</div>
@@ -67,6 +77,11 @@
 							</span>
 						</div>
 					</div>
+					<input id="img0" name="img0" type="text" style="display: none;">
+					<input id="img1" name="img1" type="text" style="display: none;">
+					<input id="img2" name="img2" type="text" style="display: none;">
+					<input id="img3" name="img3" type="text" style="display: none;">
+					<input id="img4" name="img4" type="text" style="display: none;">
 				
 					<div class="form-actions" style="background-color: transparent;border: 0;">
 						<button class="btn btn-primary" value="Register" type="submit">Create</button>
@@ -95,7 +110,7 @@
 		                <!-- The fileinput-button span is used to style the file input field as button -->
 		                <span class="btn btn-success fileinput-button">
 		                    <i class="icon-plus icon-white"></i>
-		                    <span>Add files...</span>
+		                    <span>Add images...</span>
 		                    <input type="file" name="files[]" multiple>
 		                </span>
 		                <button type="submit" class="btn btn-primary start">
@@ -125,6 +140,7 @@
 		        <!-- The loading indicator is shown during file processing -->
 		        <div class="fileupload-loading"></div>
 		        <br>
+		        <div class="well">Drag and Drop Images Here</div>
 		        <!-- The table listing the files available for upload/download -->
 		        <table role="presentation" class="table table-striped"><tbody class="files" data-toggle="modal-gallery" data-target="#modal-gallery"></tbody></table>
 		    </form>
@@ -134,11 +150,25 @@
 	</div>
 </div>
 <script type="text/javascript">
+var imgCnt;
 $(document).ready(function() {
+	imgCnt = 0;
 	$("#addImage").click(function () {
 	    $("#uploadImg").trigger('click');
 	    return false;
 	});
+	
+	$('#fileupload')
+    .bind('fileuploaddone', function (e, data) {
+    	
+    	for (var i = 0; i < data.result.files.length; i++) {
+    		
+    		 $('#img'+ imgCnt).val(data.result.files[i].imgID);
+    		 imgCnt++;
+    	}
+    	
+    
+    });
 
 });
 </script>

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.slclassifieds.adsonline.model.Advertisement;
+import com.slclassifieds.adsonline.model.Comment;
 import com.slclassifieds.adsonline.model.Image;
 import com.slclassifieds.adsonline.model.User;
 import com.slclassifieds.adsonline.model.UserRole;
@@ -29,7 +30,16 @@ public class AdvertisementDaoImpl implements AdvertisementDao {
 
 	@Override
 	public void save(Advertisement ad) 
+	{	
+		
+		hibernateTemplate.saveOrUpdate(ad);
+	}
+	
+	public void save(Comment ad) 
 	{		
+		ad.setAd((Advertisement) hibernateTemplate.getSessionFactory().getCurrentSession().merge(ad.getAd()));
+		ad.setUser( (User) hibernateTemplate.getSessionFactory().getCurrentSession().merge(ad.getUser()));
+		
 		hibernateTemplate.saveOrUpdate(ad);
 	}
 
@@ -72,22 +82,20 @@ public class AdvertisementDaoImpl implements AdvertisementDao {
 	    return adList;
 	}
 
-	@Override
-	public void save(Image img) {
-		hibernateTemplate.saveOrUpdate(img);
-		
-	}
 
 	@Override
-	public void update(Image img) {
-		hibernateTemplate.update(img);
+	public List<Advertisement> getAllAds() {
+		String sql = "SELECT * FROM ads ORDER BY CREATED DESC";
 		
-	}
-
-	@Override
-	public void delete(Image img) {
-		hibernateTemplate.delete(img);
-		
+		List <Advertisement> adList= new ArrayList<Advertisement>();
+	
+	    Query qry = hibernateTemplate.getSessionFactory().getCurrentSession().
+	    			createSQLQuery(sql)
+	    			.addEntity(Advertisement.class);
+	    
+	    adList = ( List <Advertisement> ) qry.list();
+	   
+	    return adList;
 	}
 
 }

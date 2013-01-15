@@ -61,9 +61,9 @@ public class UserDaoImpl implements UserDao  {
 		
 			hibernateTemplate.saveOrUpdate(user);
 			
-			for(int i=0;i<user.getAllFavItems().size();i++){
-				hibernateTemplate.saveOrUpdate(user.getAllFavItems().get(i));
-			}
+				for(int i=0;i<user.getAllFavItems().size();i++){
+					hibernateTemplate.saveOrUpdate(user.getAllFavItems().get(i));
+				}
 	}
 
 	@Override

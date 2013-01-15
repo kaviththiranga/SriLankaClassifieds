@@ -20,7 +20,6 @@
 	</div>
 	<div class="span5" style="text-align: center;">
 		<p>
-			<a href="<spring:url value="/ads/viewAd"/>" >view ad</a>
 			<a href="<spring:url value="/register"/>" 
 				class="btn btn-success btn-large">Sign up NOW</a>
 		</p>

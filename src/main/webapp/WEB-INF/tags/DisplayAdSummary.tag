@@ -3,10 +3,7 @@
 
 <%@ attribute name="ad" required="true" rtexprvalue="true" type="com.slclassifieds.adsonline.model.Advertisement"%>
 
-<c:forEach items="${ad.images}" var="img" varStatus="status">
-	<spring:url value="/${img.url}" var="imageOneUrl"/>
-	<spring:url value="/${img.thumbnail_url}" var="imageOneThumbUrl"/>
-</c:forEach>
+
 
 <spring:url value="/viewProfile?userId=${ad.user.userId}" var="profileLink"/>
 <spring:url value="/ads/viewAd?adId=${ad.adId}" var="adLink"/>
@@ -18,17 +15,30 @@
 	     <div class="span3">
 	     	
 	     	<div id="gallery" data-toggle="modal-gallery" data-target="#modal-gallery1" data-selector="img.gallery-item">
-	     		<a href="" onclick="return false" class="thumbnail"><img class="gallery-item" data-href="${imageOneUrl}" src="${imageOneUrl}" alt=""/></a>
-	     		<a href="" onclick="return false" class="thumbnail" style="display: none;"><img class="gallery-item" data-href="${imageOneUrl}" src="${imageOneUrl}" alt=""/></a>
+	     	
+	     		<c:forEach items="${ad.images}" var="img" varStatus="status">
+	     			<c:if test="${status.count == 1}">				
+	     				<a href="" onclick="return false" class="thumbnail"><img class="gallery-item" data-href="<spring:url value="/${img.url}"/>" src="<spring:url value="/${img.thumbnail_url}" />" alt=""/></a>
+	     			</c:if>
+	     			<c:if test="${status.count ne 1}">
+	     				<img style="display: none;" class="gallery-item" data-href="<spring:url value="/${img.url}"/>" src="<spring:url value="/${img.thumbnail_url}" />" alt=""/>
+	     			</c:if>
+	     		</c:forEach>
 			</div>
 		    <ul class="unstyled" style="text-align: right;margin-top: 10px;">
-		    	<li >seller : <a rel="tooltip" title="Click here to view details of seller ${ad.user.username}" href="${profileLink}">${ad.user.username}</a></li>
+		    	<li ><c:if test="${ad.buying== false}">seller : </c:if><c:if test="${ad.buying == true}">Buyer : </c:if>
+		    		<a rel="tooltip" title="Click here to view details of seller ${ad.user.username}" href="${profileLink}">${ad.user.username}</a></li>
+		    		
 				 <li >category : <a rel="tooltip" title="Click here to view ads under ${ad.category.catName} category" href="${catLink}">${ad.category.catName}</a></li>          	
 				
 		    </ul>
 		</div>
 		<div class="span8" >
-		    <ul class="inline" >		           
+		    <ul class="inline" >
+		    	<c:if test="${ad.buying == true}">
+			 	 	
+			 	 	<li><span class="badge badge-warning">Wanted</span></li>
+			 	 </c:if>		           
 				<li><a rel="tooltip" title="Click here to view this ad" href="${adLink}"><h4>${ad.title}</h4></a></li>	
 				
 				
@@ -41,24 +51,29 @@
 				<p>${fn:substring(ad.desc,0,120)}...</p>
 				<small><a rel="tooltip" title="Click here to view this ad" href="${adLink}">read more</a></small>
 			</blockquote>
-			<div class="span3">
-				<!-- <a class="btn  btn-success btn" href="${adLink}">View</a> -->
+			<div class="span3" style="vertical-align: middle;">
+				<c:if test="${ad.buying== false}"><!-- <a class="btn  btn-success btn" href="${adLink}">View</a> -->
 			           
 			 	<security:authorize access="isAuthenticated()">
 			           
-			       <a class="btn btn-success btn" href="${adLink}#bid">Bid</a>
+			       <!--<a class="btn btn-primary btn" href="${adLink}#bid">Bid</a>-->
 			       
 			 	</security:authorize>
-			         
-			 	<a class="btn btn btn-primary disabled">Rs. <fmt:formatNumber type="number" maxFractionDigits="2" value="${ad.price}" /> /- </a>
+			    <span class="label label-success" style="font-size: large;padding: 7px;">Rs. <fmt:formatNumber type="number" maxFractionDigits="2" value="${ad.price}" /> /- </span>     
 			 	
+			 	 </c:if>
+			 	 <c:if test="${ad.buying == true}">
+			 	 	<a class="btn btn btn-primary">Contact Buyer</a>
+			 	 	
+			 	 </c:if>
 			 </div>
 			 <div class="inline" style="text-align:right;padding-top: 10px;">
 			     <ul class="inline" >
 			     	<li><label id="adSummaryMsg${ad.adId}" style="text-align:right;"></label></li>
 			     	<li><a rel="tooltip" title="Click here to view comments" href="${adLink}#comments">${fn:length(ad.allComments)} comments</a></li>
-			      	| 
-			      	<li><a  rel="tooltip" title="Click here to view bids" href="${adLink}#bids">${fn:length(ad.allBids)} bids</a></li>
+			      	<c:if test="${ad.buying == false}">| 
+			      		<li><a  rel="tooltip" title="Click here to view bids" href="${adLink}#bids">${fn:length(ad.allBids)} bids</a></li>
+			      	</c:if>
 			      </ul>	
 			  </div>         
 		</div>

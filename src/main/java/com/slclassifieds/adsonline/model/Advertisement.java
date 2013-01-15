@@ -42,6 +42,12 @@ public class Advertisement implements Serializable {
     @JoinColumn(name="USER_ID" )
 	private User user;
 	
+	@Column(name = "IS_BUYING")
+	private Short buying;
+	
+	@Transient
+	private String isBuying;
+	
 	@Column(name = "TITLE")
 	private String title;
 	
@@ -95,6 +101,30 @@ public class Advertisement implements Serializable {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+	
+	public void setBuying(short i){
+		this.buying = i;
+	}
+	
+	public short getBuying(){
+		
+		return buying;
+	}
+	
+	
+	public String getIsBuying() {
+		return isBuying;
+	}
+
+	public void setIsBuying(String isBuying) {
+		this.buying = Short.parseShort(isBuying);
+		this.isBuying = isBuying;
+	}
+
+	public boolean isBuying(){
+		
+		return (buying==0)?false:true;
 	}
 
 	public String getTitle() {
