@@ -51,19 +51,25 @@
 				<p>${fn:substring(ad.desc,0,120)}...</p>
 				<small><a rel="tooltip" title="Click here to view this ad" href="${adLink}">read more</a></small>
 			</blockquote>
-			<div class="span3" style="vertical-align: middle;">
+			<div class="span9" style="vertical-align: middle;">
 				<c:if test="${ad.buying== false}"><!-- <a class="btn  btn-success btn" href="${adLink}">View</a> -->
 			           
-			 	<security:authorize access="isAuthenticated()">
-			           
-			       <!--<a class="btn btn-primary btn" href="${adLink}#bid">Bid</a>-->
-			       
-			 	</security:authorize>
-			    <span class="label label-success" style="font-size: large;padding: 7px;">Rs. <fmt:formatNumber type="number" maxFractionDigits="2" value="${ad.price}" /> /- </span>     
+				 	<security:authorize access="isAuthenticated()">
+				           
+				       <!--<a class="btn btn-primary btn" href="${adLink}#bid">Bid</a>-->
+				       
+				 	</security:authorize>
+				    <span class="label label-success" style="font-size:medium; padding: 7px;">Rs. <fmt:formatNumber type="number" maxFractionDigits="2" value="${ad.price}" /> /- </span>     
 			 	
 			 	 </c:if>
 			 	 <c:if test="${ad.buying == true}">
-			 	 	<a class="btn btn btn-primary">Contact Buyer</a>
+			 	 	<span class="label label-success" style="font-size: medium;padding: 7px;">Preffered Price - Rs. <fmt:formatNumber type="number" maxFractionDigits="2" value="${ad.price}" /> /- </span>     
+			 	 
+			 	 	<a class="label label-info" style="font-size: medium;padding: 7px;" href="${adLink}#placeOffer">Place an offer</a>
+			 	 	
+			 	 </c:if>
+			 	 <c:if test="${ad.buying == false}">
+			 	 	<a class="label label-info" style="font-size: medium;padding: 7px;"  href="${adLink}#placeBargain">Bargain</a>
 			 	 	
 			 	 </c:if>
 			 </div>
@@ -72,7 +78,10 @@
 			     	<li><label id="adSummaryMsg${ad.adId}" style="text-align:right;"></label></li>
 			     	<li><a rel="tooltip" title="Click here to view comments" href="${adLink}#comments">${fn:length(ad.allComments)} comments</a></li>
 			      	<c:if test="${ad.buying == false}">| 
-			      		<li><a  rel="tooltip" title="Click here to view bids" href="${adLink}#bids">${fn:length(ad.allBids)} bids</a></li>
+			      		<li><a  rel="tooltip" title="Click here to view bargains" href="${adLink}#bargains">${fn:length(ad.allBids)} bargains</a></li>
+			      	</c:if>
+			      	<c:if test="${ad.buying == true}">| 
+			      		<li><a  rel="tooltip" title="Click here to view offers" href="${adLink}#offers">${fn:length(ad.allBids)} offers</a></li>
 			      	</c:if>
 			      </ul>	
 			  </div>         

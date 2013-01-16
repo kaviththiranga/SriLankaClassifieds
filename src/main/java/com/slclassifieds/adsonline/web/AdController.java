@@ -28,6 +28,7 @@ import com.slclassifieds.adsonline.dao.CategoryDao;
 import com.slclassifieds.adsonline.dao.ImageDao;
 import com.slclassifieds.adsonline.dao.UserDao;
 import com.slclassifieds.adsonline.model.Advertisement;
+import com.slclassifieds.adsonline.model.Bid;
 import com.slclassifieds.adsonline.model.Category;
 import com.slclassifieds.adsonline.model.Comment;
 import com.slclassifieds.adsonline.model.FavItem;
@@ -66,6 +67,7 @@ public class AdController {
 		
 		Advertisement ad = advertisementDao.getAdById(adId);
 		model.addAttribute("ad", ad);
+		model.addAttribute("currentUser", UserService.getCurrentUser());
 		
 		return "viewAd";
 	}
@@ -195,6 +197,79 @@ public class AdController {
 		
 		
 	}
+	
+	@RequestMapping(value="/ads/addBid", method = RequestMethod.POST )
+	public @ResponseBody HashMap<String,String> submitBid( @RequestParam("amount")String bid,
+			
+			@RequestParam("adId")String adId
+			
+			){
+		
+		 	HashMap<String,String> map = new HashMap<String, String>();
+		 
+		 	// I am using a thread.sleep here because I want to see wether
+			// the loading animations on client side is working.
+			// Since I am testing the site in a local server, response is received very quickly.
+			// So we didn't get enough time to see loading animations
+			// Remove this try catch block when deploying in actual server
+			try {
+				Thread.sleep(500);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			// END TRY CATCH : NOTE REMOVE THIS BEFORE DEPLOYING
+			
+			if(UserService.isUserLoggedIn()){
+				User user = UserService.getCurrentUser();	
+				
+				Bid bd = new Bid();
+				
+				try{
+					bd.setAmount(Double.parseDouble(bid));
+					bd.setAd(advertisementDao.getAdById(adId));
+					bd.setPlacedOn(new Date());
+					bd.setUser(user);
+					
+					advertisementDao.save(bd);
+					
+					map.put("status", "OK");
+					map.put("bidAmount", bd.getAmount()+"");
+					map.put("username", user.getUsername());
+					map.put("userid", user.getUserId());
+					map.put("msg", "Offer has been placed successfully.");
+				}
+				catch(Exception exception){
+					
+					map.put("status", "NOT_OK");
+					map.put("msg", "Oops! error happened. Did you enter text for amount?");
+					exception.printStackTrace();
+				}
+						
+			}
+			else{
+				map.put("status", "NOT_OK");
+				map.put("msg", "Please Login First.");
+			}
+		 
+		 return map;
+		
+		
+	}
+	
+	@RequestMapping(value="/sendOwnerEmail", method = RequestMethod.POST )
+	public @ResponseBody HashMap<String,String> sendOwnerEmail( @RequestParam("msg")String msg,
+			
+			@RequestParam("username")String username, @RequestParam("adId")String adId
+			,@RequestParam("userId")String userId
+			
+			){
+		
+		 	HashMap<String,String> map = new HashMap<String, String>();
+		 	
+		 	return map;
+	}
+	
 	@ModelAttribute("cats")
 	public List<Category> getCategories(){
 		

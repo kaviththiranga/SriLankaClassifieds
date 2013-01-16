@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.slclassifieds.adsonline.model.Advertisement;
 import com.slclassifieds.adsonline.model.Category;
+import com.slclassifieds.adsonline.model.FavItem;
 import com.slclassifieds.adsonline.model.User;
 import com.slclassifieds.adsonline.model.UserRole;
 
@@ -14,6 +15,7 @@ import com.slclassifieds.adsonline.model.UserRole;
 public interface UserDao {
 	
 	void save(User user);
+	void save(FavItem item);
 	void update(User user);
 	void delete(User user);
 	User findByUserId(String userId);

@@ -128,11 +128,12 @@
 					</a>
 					<div class="nav-collapse">
 						<ul class="nav">
-							<li><a href="<spring:url value="/home"/>">Home</a></li>
-							<li><a href="<spring:url value="/ads/viewAllAds"/>">All Ads</a></li>
-							<li><a href="<spring:url value="/register"/>">Register</a></li>
+							<li><a href="<spring:url value="/home"/>"><i class="icon-home"></i> Home</a></li>
+							<li><a href="<spring:url value="/ads/viewAllAds"/>"><i class="icon-th-list"></i> All Ads</a></li>
 							<li><a href="<spring:url value="/ads/new"/>">Post a Ad</a></li>
-							<li><a href="<spring:url value="/profile"/>">Profile</a></li>
+							<li><a href="<spring:url value="/register"/>">Register</a></li>
+							
+							<!-- <li><a href="<spring:url value="/profile"/>">Profile</a></li> -->
 							
 							    
 						</ul>

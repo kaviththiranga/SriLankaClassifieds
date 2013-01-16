@@ -23,6 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.slclassifieds.adsonline.model.Advertisement;
 import com.slclassifieds.adsonline.model.Category;
+import com.slclassifieds.adsonline.model.FavItem;
 import com.slclassifieds.adsonline.model.User;
 import com.slclassifieds.adsonline.model.UserRole;
 
@@ -60,10 +61,6 @@ public class UserDaoImpl implements UserDao  {
 	public void update(User user) {
 		
 			hibernateTemplate.saveOrUpdate(user);
-			
-				for(int i=0;i<user.getAllFavItems().size();i++){
-					hibernateTemplate.saveOrUpdate(user.getAllFavItems().get(i));
-				}
 	}
 
 	@Override
@@ -158,6 +155,12 @@ public class UserDaoImpl implements UserDao  {
 	    adList = ( List <Advertisement> ) qry.list();
 	   
 	    return adList;
+	}
+
+	@Override
+	public void save(FavItem item) {
+		hibernateTemplate.save(item);
+		
 	}
 	
 	

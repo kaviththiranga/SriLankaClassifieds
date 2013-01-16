@@ -3,6 +3,7 @@ package com.slclassifieds.adsonline.dao;
 import java.util.List;
 
 import com.slclassifieds.adsonline.model.Advertisement;
+import com.slclassifieds.adsonline.model.Bid;
 import com.slclassifieds.adsonline.model.Comment;
 import com.slclassifieds.adsonline.model.Image;
 
@@ -15,5 +16,6 @@ public interface AdvertisementDao {
 	public List<Advertisement> getAdsByUserId(String userId);
 	public List<Advertisement> getAllAds();
 	public void save(Comment comment);
+	public void save(Bid bid);
 
 }

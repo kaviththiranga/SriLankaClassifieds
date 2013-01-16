@@ -364,7 +364,7 @@ public class UserController {
 
 			if(!found){
 				user.getAllFavItems().add(favItem);
-				userDao.update(user);
+				userDao.save(favItem);
 				response = new Message("adSummaryMsg", "This Ad is added to your wish list.","text-success");
 			}
 			else{

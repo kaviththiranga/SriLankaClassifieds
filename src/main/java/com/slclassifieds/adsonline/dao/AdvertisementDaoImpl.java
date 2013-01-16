@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.slclassifieds.adsonline.model.Advertisement;
+import com.slclassifieds.adsonline.model.Bid;
 import com.slclassifieds.adsonline.model.Comment;
 import com.slclassifieds.adsonline.model.Image;
 import com.slclassifieds.adsonline.model.User;
@@ -96,6 +97,15 @@ public class AdvertisementDaoImpl implements AdvertisementDao {
 	    adList = ( List <Advertisement> ) qry.list();
 	   
 	    return adList;
+	}
+
+	@Override
+	public void save(Bid bid) {
+		bid.setAd((Advertisement) hibernateTemplate.getSessionFactory().getCurrentSession().merge(bid.getAd()));
+		bid.setUser( (User) hibernateTemplate.getSessionFactory().getCurrentSession().merge(bid.getUser()));
+		
+		hibernateTemplate.saveOrUpdate(bid);
+		
 	}
 
 }
