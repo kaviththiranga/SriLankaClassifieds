@@ -16,6 +16,7 @@ import com.slclassifieds.adsonline.model.Comment;
 import com.slclassifieds.adsonline.model.Image;
 import com.slclassifieds.adsonline.model.User;
 import com.slclassifieds.adsonline.model.UserRole;
+import com.slclassifieds.adsonline.service.UserService;
 
 @Repository
 @Transactional
@@ -65,18 +66,19 @@ public class AdvertisementDaoImpl implements AdvertisementDao {
 		return ad;
 	}
 
+	
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Advertisement> getAdsByUserId(String userId) {
 
-		String sql = "SELECT * FROM advertisements USER_ID = :uID";
+		String sql = "SELECT * FROM ads WHERE USER_ID=:uID";
 		
 		List <Advertisement> adList= new ArrayList<Advertisement>();
 	
 	    Query qry = hibernateTemplate.getSessionFactory().getCurrentSession().
 	    			createSQLQuery(sql)
 	    			.addEntity(Advertisement.class)
-	    			.setParameter("uID", userId);
+	    			.setInteger("uID", Integer.parseInt(userId));
 	    
 	    adList = ( List <Advertisement> ) qry.list();
 	   
@@ -106,6 +108,12 @@ public class AdvertisementDaoImpl implements AdvertisementDao {
 		
 		hibernateTemplate.saveOrUpdate(bid);
 		
+	}
+
+	@Override
+	public List<Advertisement> getAdsByCurrentUser() {
+		
+		return getAdsByUserId(UserService.getCurrentUser().getUserId());
 	}
 
 }

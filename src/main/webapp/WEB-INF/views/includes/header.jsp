@@ -87,6 +87,17 @@
 						        			<i class="icon-user" style="margin-right: 2px;"></i>
 						        			profile
 						        		</a>
+						        	</li>
+						        	<li class="divider"></li>			        
+						        	<li><a href="<spring:url value="/ads/myAds"/>">
+						        			<i class="icon-th-list" style="margin-right: 2px;"></i>
+						        			Ads by me
+						        		</a>
+						        	</li>
+						        	<li><a href="<spring:url value="/ads/wishList"/>">
+						        			<i class="icon-star" style="margin-right: 2px;color: aqua ;"></i>
+						        			My Wish List
+						        		</a>
 						        	</li>	
 						        	<li class="divider"></li>			        
 						        	<li><a href="<spring:url value="/j_spring_security_logout"/>">
@@ -130,8 +141,22 @@
 						<ul class="nav">
 							<li><a href="<spring:url value="/home"/>"><i class="icon-home"></i> Home</a></li>
 							<li><a href="<spring:url value="/ads/viewAllAds"/>"><i class="icon-th-list"></i> All Ads</a></li>
-							<li><a href="<spring:url value="/ads/new"/>">Post a Ad</a></li>
-							<li><a href="<spring:url value="/register"/>">Register</a></li>
+							<li><a  href="<spring:url value="/ads/new"/>">Post a Ad</a></li>
+							<security:authorize access="!isAuthenticated()">
+								<li><a href="<spring:url value="/register"/>">Register</a></li>
+							</security:authorize>
+							<security:authorize access="isAuthenticated()">
+								<li><a href="<spring:url value="/ads/myAds"/>">
+					        			<i class="icon-th-list" style="margin-right: 2px;"></i>
+					        			Ads by me
+					        		</a>
+							    </li>
+					        	<li><a href="<spring:url value="/ads/wishList"/>">
+					        			<i class="icon-star" style="margin-right: 2px;color: aqua ;"></i>
+					        			My Wish List
+					        		</a>
+					        	</li>
+					        </security:authorize>
 							
 							<!-- <li><a href="<spring:url value="/profile"/>">Profile</a></li> -->
 							

@@ -5,14 +5,18 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.support.PagedListHolder;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -21,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.slclassifieds.adsonline.dao.AdvertisementDao;
@@ -46,6 +51,7 @@ public class AdController {
 	
 	@Autowired
 	private AdvertisementDao advertisementDao;
+
 	
 	@Autowired	
 	private ImageDao imgDao; 
@@ -73,12 +79,59 @@ public class AdController {
 	}
 	
 	@RequestMapping(value="/ads/viewAllAds", method= RequestMethod.GET)
-	public String viewAllAds(Model model){
+	public String viewAllAds(HttpServletRequest request,Model model){
+		
+		
 
-		List<Advertisement> ads =advertisementDao.getAllAds();
+		List ads =advertisementDao.getAllAds();
 		model.addAttribute("ads", ads);
 		
 		return "viewAllAds";
+	}
+	
+	@RequestMapping(value="/ads/myAds", method= RequestMethod.GET)
+	public String viewMyAds(HttpServletRequest request,Model model){
+		
+		if(UserService.isUserLoggedIn())
+		{
+		
+			List<Advertisement> ads =advertisementDao.getAdsByCurrentUser();
+			model.addAttribute("ads", ads);
+			return "adsByMe";
+		}
+		else{
+
+			model.addAttribute("mainmsg", "Please login first");
+			model.addAttribute("mainmsgclass", "alert-error");
+			return "login";
+		}
+		
+		
+	}
+	
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value="/ads/wishList", method= RequestMethod.GET)
+	public String viewMyFavAds(HttpServletRequest request,Model model){
+		
+		if(UserService.isUserLoggedIn())
+		{
+		
+			List<FavItem> fis =UserService.getCurrentUser().getAllFavItems();
+			List<Advertisement> ads = new ArrayList<Advertisement>();
+			for(int i=0;i<fis.size();i++){
+				
+				ads.add(fis.get(i).getAd());
+			}
+			
+			model.addAttribute("ads", ads);
+			return "myFavAds";
+		}
+		else{
+
+			model.addAttribute("mainmsg", "Please login first");
+			model.addAttribute("mainmsgclass", "alert-error");
+			return "login";
+		}
 	}
 	
 	@RequestMapping(value="/ads/new", method= RequestMethod.GET)
@@ -283,5 +336,5 @@ public class AdController {
 		catEd.setCatDao(catDao);
         binder.registerCustomEditor(Category.class,catEd);
     }
-	
+
 }

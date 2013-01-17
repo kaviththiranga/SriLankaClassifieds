@@ -17,5 +17,6 @@ public interface AdvertisementDao {
 	public List<Advertisement> getAllAds();
 	public void save(Comment comment);
 	public void save(Bid bid);
+	public List<Advertisement> getAdsByCurrentUser();
 
 }

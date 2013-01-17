@@ -127,7 +127,7 @@ public class UserController {
 			} catch (Exception e) {
 				
 				logger.info("User Account Creation Failed."+e.getStackTrace());
-				
+				e.printStackTrace();
 				msg = "Oops! Something went wrong in the Server. Please Try again later.";
 				model.addAttribute("mainmsg", msg);	
 				model.addAttribute("mainmsgclass", "alert-error");			
